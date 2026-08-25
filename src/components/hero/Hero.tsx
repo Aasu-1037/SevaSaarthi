@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Sparkles, CheckCircle2, Clock, ShieldCheck, FileText } from "lucide-react";
 import { DotGrid, ConcentricRings, OrganicBlob } from "../decorations/SvgDecorations";
+import { ThreeCanvas } from "../animations/ThreeCanvas";
 import { fadeUp, staggerContainer } from "@/lib/utils/animations";
 
 export const Hero: React.FC = () => {
@@ -34,6 +35,7 @@ export const Hero: React.FC = () => {
         overflow: "hidden",
       }}
     >
+      <ThreeCanvas />
       <DotGrid opacity={0.12} />
       <OrganicBlob color="var(--color-bg-tertiary)" opacity={0.8} />
 
