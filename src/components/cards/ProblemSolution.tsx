@@ -1,23 +1,33 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
-import { HelpCircle, AlertCircle, CheckCircle2, ArrowRight } from "lucide-react";
-import { fadeUp, staggerContainer } from "@/lib/utils/animations";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { AlertCircle, CheckCircle2, ArrowRight, HelpCircle, FileText, Sparkles, RefreshCw } from "lucide-react";
 
 export const ProblemSection: React.FC = () => {
-  const confusingTerms = [
+  const [activeTab, setActiveTab] = useState(0);
+
+  const comparisons = [
     {
-      govt: "Application Status: Verification Pending by Mamlatdar Office",
-      citizen: "Is my document accepted or is it stuck somewhere?",
+      govtStatus: "Application Status: Verification Pending by Mamlatdar Office (Inward #48291)",
+      govtMeaning: "The portal leaves citizens guessing: Is my document accepted? Is it stuck? Do I need to visit the office?",
+      sevaStatus: "On Track: Under Officer Review (Stage 2 of 3)",
+      sevaMeaning: "Your documents are verified. The Talati has forwarded your application to the Mamlatdar office. No action needed right now.",
+      actionLabel: "Estimated Resolution: 2 Business Days",
     },
     {
-      govt: "Affidavit along with Self-Declaration Form 16-A required",
-      citizen: "Which exact stamp paper do I buy, and who signs it?",
+      govtStatus: "Application Returned under Rule 4(B) for Revision of Income Proof",
+      govtMeaning: "Harsh rejection notice with zero guidance on what document needs fixing or what stamp paper is valid.",
+      sevaStatus: "Action Needed: Please Upload Updated Income Certificate",
+      sevaMeaning: "Your income proof document is from FY 2023-24. We need the latest income certificate for FY 2025-26. Click below to replace.",
+      actionLabel: "Step-by-Step Fix Available",
     },
     {
-      govt: "Application Returned under Rule 4(B) for Revision",
-      citizen: "Why was it rejected, and what document do I re-upload?",
+      govtStatus: "Affidavit along with Self-Declaration Form 16-A required at VCE center",
+      govtMeaning: "Bureaucratic jargon confusing citizens about notary requirements, stamp paper values, and physical submission.",
+      sevaStatus: "Self-Declaration Form Ready to Download",
+      sevaMeaning: "We generated your pre-filled Self-Declaration form. Just sign it and upload a photo from your mobile phone.",
+      actionLabel: "Pre-filled Form Generated",
     },
   ];
 
@@ -27,85 +37,180 @@ export const ProblemSection: React.FC = () => {
         paddingTop: "var(--space-section)",
         paddingBottom: "var(--space-section)",
         backgroundColor: "var(--color-bg-primary)",
+        borderBottom: "1px solid rgba(217, 98, 30, 0.1)",
       }}
     >
       <div className="container-custom">
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          style={{ maxWidth: "880px", margin: "0 auto", textAlign: "center", marginBottom: "4rem" }}
-        >
-          <motion.div variants={fadeUp} style={{ marginBottom: "1rem" }}>
-            <span className="eyebrow-badge">The Problem</span>
-          </motion.div>
-          <motion.h2
-            variants={fadeUp}
+        {/* Section Header */}
+        <div style={{ maxWidth: "800px", margin: "0 auto", textAlign: "center", marginBottom: "3.5rem" }}>
+          <span className="eyebrow-badge">
+            <AlertCircle size={14} /> The Clarity Gap
+          </span>
+          <h2
             style={{
               fontFamily: "var(--font-display)",
               fontSize: "var(--text-display)",
               fontWeight: 800,
-              lineHeight: 1.05,
-              letterSpacing: "-0.02em",
               color: "var(--color-text-primary)",
-              marginBottom: "1.5rem",
+              marginTop: "1rem",
+              marginBottom: "1rem",
+              lineHeight: 1.1,
             }}
           >
             The information exists. <br />
             <span style={{ color: "var(--color-brand-secondary)" }}>The clarity doesn't.</span>
-          </motion.h2>
-          <motion.p
-            variants={fadeUp}
-            style={{
-              fontSize: "var(--text-body-lg)",
-              color: "var(--color-text-secondary)",
-              lineHeight: 1.6,
-            }}
-          >
-            Government websites give you information. Citizens need answers. Here is what happens today when citizens try to use official digital portals:
-          </motion.p>
-        </motion.div>
+          </h2>
+          <p style={{ fontSize: "var(--text-body-lg)", color: "var(--color-text-secondary)", lineHeight: 1.6 }}>
+            Official government portals give citizens status codes. Citizens need clear answers. Compare the difference below:
+          </p>
+        </div>
 
-        {/* Confusing Terminology Cards */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1.5rem" }}>
-          {confusingTerms.map((item, idx) => (
+        {/* Interactive Jargon Translator Card */}
+        <div
+          className="spotlight-card"
+          style={{
+            maxWidth: "960px",
+            margin: "0 auto",
+            backgroundColor: "#FFFFFF",
+            borderRadius: "var(--radius-xl)",
+            padding: "clamp(1.5rem, 4vw, 2.5rem)",
+            boxShadow: "var(--shadow-md)",
+            border: "1px solid rgba(217, 98, 30, 0.16)",
+          }}
+        >
+          {/* Tab Selector Buttons */}
+          <div style={{ display: "flex", gap: "0.5rem", marginBottom: "2rem", overflowX: "auto", paddingBottom: "0.5rem" }}>
+            {comparisons.map((c, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActiveTab(idx)}
+                style={{
+                  padding: "0.6rem 1.1rem",
+                  borderRadius: "var(--radius-pill)",
+                  border: activeTab === idx ? "1px solid var(--color-brand-primary)" : "1px solid rgba(217, 98, 30, 0.15)",
+                  backgroundColor: activeTab === idx ? "var(--color-brand-accent-bg)" : "var(--color-bg-primary)",
+                  color: activeTab === idx ? "var(--color-brand-primary)" : "var(--color-text-secondary)",
+                  fontWeight: 700,
+                  fontSize: "0.85rem",
+                  cursor: "pointer",
+                  whiteSpace: "nowrap",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                Case #{idx + 1}: {idx === 0 ? "Pending Status" : idx === 1 ? "Returned Application" : "Complex Requirements"}
+              </button>
+            ))}
+          </div>
+
+          {/* Split Comparison Box */}
+          <AnimatePresence mode="wait">
             <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: idx * 0.15 }}
-              className="spotlight-card"
+              key={activeTab}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.3 }}
               style={{
-                padding: "2rem",
-                backgroundColor: "var(--color-bg-card)",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+                gap: "1.5rem",
               }}
             >
-              <div>
-                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "1rem", color: "var(--color-status-error)" }}>
-                  <AlertCircle size={18} />
-                  <span style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase" }}>Official Language</span>
+              {/* Left Column: Official Bureaucratic Portal */}
+              <div
+                style={{
+                  padding: "1.75rem",
+                  borderRadius: "var(--radius-lg)",
+                  backgroundColor: "#FEF2F2",
+                  border: "1px solid rgba(185, 28, 28, 0.2)",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}
+              >
+                <div>
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "1rem", color: "var(--color-status-error)" }}>
+                    <AlertCircle size={18} />
+                    <span style={{ fontSize: "0.75rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                      Typical Government Portal Output
+                    </span>
+                  </div>
+
+                  <div
+                    style={{
+                      fontFamily: "monospace",
+                      fontSize: "0.9rem",
+                      fontWeight: 700,
+                      color: "var(--color-text-primary)",
+                      backgroundColor: "#FFFFFF",
+                      padding: "1rem",
+                      borderRadius: "var(--radius-md)",
+                      border: "1px solid rgba(185, 28, 28, 0.15)",
+                      marginBottom: "1rem",
+                      lineHeight: 1.4,
+                    }}
+                  >
+                    "{comparisons[activeTab].govtStatus}"
+                  </div>
+
+                  <p style={{ fontSize: "0.875rem", color: "var(--color-text-secondary)" }}>
+                    {comparisons[activeTab].govtMeaning}
+                  </p>
                 </div>
-                <p style={{ fontSize: "0.95rem", fontWeight: 600, color: "var(--color-text-muted)", marginBottom: "1.5rem", fontStyle: "italic" }}>
-                  "{item.govt}"
-                </p>
+
+                <div style={{ marginTop: "1.5rem", paddingTop: "1rem", borderTop: "1px stroke rgba(185, 28, 28, 0.1)", color: "var(--color-status-error)", fontSize: "0.8rem", fontWeight: 700 }}>
+                  ✕ High Citizen Anxiety & Confusion
+                </div>
               </div>
 
-              <div style={{ paddingTop: "1rem", borderTop: "1px stroke rgba(232, 114, 42, 0.1)" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem", color: "var(--color-brand-primary)" }}>
-                  <HelpCircle size={18} />
-                  <span style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase" }}>What Citizen Asks</span>
+              {/* Right Column: SevaSaathi Plain Language Translation */}
+              <div
+                style={{
+                  padding: "1.75rem",
+                  borderRadius: "var(--radius-lg)",
+                  backgroundColor: "var(--color-status-ready-bg)",
+                  border: "1.5px solid var(--color-status-ready)",
+                  boxShadow: "var(--shadow-sm)",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}
+              >
+                <div>
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "1rem", color: "var(--color-status-ready)" }}>
+                    <CheckCircle2 size={18} />
+                    <span style={{ fontSize: "0.75rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                      SevaSaathi Plain Language Explanation
+                    </span>
+                  </div>
+
+                  <div
+                    style={{
+                      fontSize: "1rem",
+                      fontWeight: 800,
+                      color: "var(--color-text-primary)",
+                      backgroundColor: "#FFFFFF",
+                      padding: "1rem",
+                      borderRadius: "var(--radius-md)",
+                      border: "1px solid rgba(46, 111, 64, 0.2)",
+                      marginBottom: "1rem",
+                      lineHeight: 1.4,
+                    }}
+                  >
+                    "{comparisons[activeTab].sevaStatus}"
+                  </div>
+
+                  <p style={{ fontSize: "0.9rem", color: "var(--color-text-primary)", fontWeight: 600, lineHeight: 1.5 }}>
+                    {comparisons[activeTab].sevaMeaning}
+                  </p>
                 </div>
-                <p style={{ fontSize: "1.05rem", fontWeight: 700, color: "var(--color-text-primary)" }}>
-                  "{item.citizen}"
-                </p>
+
+                <div style={{ marginTop: "1.5rem", paddingTop: "1rem", borderTop: "1px stroke rgba(46, 111, 64, 0.15)", color: "var(--color-status-ready)", fontSize: "0.85rem", fontWeight: 800, display: "flex", alignItems: "center", gap: "0.4rem" }}>
+                  <Sparkles size={16} /> {comparisons[activeTab].actionLabel}
+                </div>
               </div>
             </motion.div>
-          ))}
+          </AnimatePresence>
         </div>
       </div>
     </section>
@@ -119,36 +224,28 @@ export const SolutionSection: React.FC = () => {
         paddingTop: "var(--space-section)",
         paddingBottom: "var(--space-section)",
         backgroundColor: "var(--color-bg-secondary)",
-        position: "relative",
       }}
     >
       <div className="container-custom">
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          style={{ maxWidth: "860px", margin: "0 auto", textAlign: "center" }}
-        >
-          <motion.div variants={fadeUp} style={{ marginBottom: "1rem" }}>
-            <span className="eyebrow-badge">The Solution</span>
-          </motion.div>
-          <motion.h2
-            variants={fadeUp}
+        <div style={{ maxWidth: "840px", margin: "0 auto", textAlign: "center" }}>
+          <span className="eyebrow-badge" style={{ marginBottom: "1rem" }}>
+            <Sparkles size={14} /> The SevaSaathi Solution
+          </span>
+          <h2
             style={{
               fontFamily: "var(--font-display)",
               fontSize: "var(--text-display)",
               fontWeight: 800,
-              lineHeight: 1.05,
               color: "var(--color-text-primary)",
-              marginBottom: "1.5rem",
+              lineHeight: 1.1,
+              marginTop: "1rem",
+              marginBottom: "1.25rem",
             }}
           >
             Tell us what you need. <br />
             <span style={{ color: "var(--color-brand-primary)" }}>We'll show you what to do next.</span>
-          </motion.h2>
-          <motion.p
-            variants={fadeUp}
+          </h2>
+          <p
             style={{
               fontSize: "var(--text-body-lg)",
               color: "var(--color-text-secondary)",
@@ -156,10 +253,11 @@ export const SolutionSection: React.FC = () => {
               marginBottom: "2.5rem",
             }}
           >
-            SevaSaathi flips bureaucratic complexity upside down. Instead of memorizing official rules and scheme names, citizens describe their needs in natural language, upload documents with clarity, and receive plain-language guidance every step of the way.
-          </motion.p>
-        </motion.div>
+            SevaSaathi flips bureaucratic complexity upside down. Citizens describe their needs in natural language, prepare documents with clear guidance, and track status with total confidence.
+          </p>
+        </div>
       </div>
     </section>
   );
 };
+

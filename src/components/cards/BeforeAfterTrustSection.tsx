@@ -2,25 +2,25 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { XCircle, CheckCircle, ShieldCheck, Database, Lock, Key, CreditCard } from "lucide-react";
+import { XCircle, CheckCircle2, ShieldCheck, Database, Lock, Key, CreditCard, Sparkles } from "lucide-react";
 
 export const BeforeAfterSection: React.FC = () => {
   const comparisons = [
     {
-      beforeTitle: "Standard Government Portal",
+      beforeTitle: "Standard Government Portal Output",
       beforeStatus: "STATUS: RETURNED UNDER CLAUSE 12 FOR RE-VERIFICATION OF INCOME PROOF",
-      beforeMeaning: "Citizen has no idea what document is wrong or what to do.",
-      afterTitle: "SevaSaathi Plain Language",
+      beforeMeaning: "Citizen has no idea what document is wrong or what to do next.",
+      afterTitle: "SevaSaathi Plain-Language Explanation",
       afterStatus: "Action Required: Update Income Proof Document",
-      afterMeaning: "We need one updated document showing your annual income for 2025-26. Click here to upload.",
+      afterMeaning: "We need one updated document showing your annual income for 2025-26. Click here to upload your latest salary slip or IT return.",
     },
     {
-      beforeTitle: "Standard Government Portal",
+      beforeTitle: "Standard Government Portal Output",
       beforeStatus: "STATUS: INWARDED - PENDING TESHILDAR APPROVAL STAGE 2",
-      beforeMeaning: "Is my application progressing? Should I visit the office?",
-      afterTitle: "SevaSaathi Plain Language",
-      afterStatus: "On Track: Under Officer Review",
-      afterMeaning: "Your application is being reviewed by the officer. No action is required from you right now.",
+      beforeMeaning: "Is my application progressing? Should I physically visit the office?",
+      afterTitle: "SevaSaathi Plain-Language Explanation",
+      afterStatus: "On Track: Under Officer Review (Stage 2 of 3)",
+      afterMeaning: "Your application is currently under officer review. No action is required from you right now.",
     },
   ];
 
@@ -30,11 +30,14 @@ export const BeforeAfterSection: React.FC = () => {
         paddingTop: "var(--space-section)",
         paddingBottom: "var(--space-section)",
         backgroundColor: "var(--color-bg-primary)",
+        borderBottom: "1px solid rgba(217, 98, 30, 0.1)",
       }}
     >
       <div className="container-custom">
-        <div style={{ maxWidth: "800px", margin: "0 auto", textAlign: "center", marginBottom: "4rem" }}>
-          <span className="eyebrow-badge">Clarity Comparison</span>
+        <div style={{ maxWidth: "800px", margin: "0 auto", textAlign: "center", marginBottom: "3.5rem" }}>
+          <span className="eyebrow-badge">
+            <Sparkles size={14} /> Plain Language Transformation
+          </span>
           <h2
             style={{
               fontFamily: "var(--font-display)",
@@ -42,13 +45,14 @@ export const BeforeAfterSection: React.FC = () => {
               fontWeight: 800,
               color: "var(--color-text-primary)",
               marginTop: "1rem",
+              lineHeight: 1.1,
             }}
           >
             Before & After SevaSaathi
           </h2>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "1.75rem", maxWidth: "960px", margin: "0 auto" }}>
           {comparisons.map((c, idx) => (
             <div
               key={idx}
@@ -61,44 +65,54 @@ export const BeforeAfterSection: React.FC = () => {
               {/* Before Card */}
               <div
                 style={{
-                  padding: "2rem",
-                  borderRadius: "var(--radius-xl)",
-                  backgroundColor: "#FFF0F0",
-                  border: "1px solid rgba(196, 91, 74, 0.2)",
+                  padding: "1.75rem",
+                  borderRadius: "var(--radius-lg)",
+                  backgroundColor: "#FEF2F2",
+                  border: "1px solid rgba(185, 28, 28, 0.2)",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
                 }}
               >
-                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "var(--color-status-error)", marginBottom: "1rem" }}>
-                  <XCircle size={20} />
-                  <span style={{ fontSize: "0.85rem", fontWeight: 700 }}>{c.beforeTitle}</span>
+                <div>
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "var(--color-status-error)", marginBottom: "1rem" }}>
+                    <XCircle size={18} />
+                    <span style={{ fontSize: "0.75rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.05em" }}>{c.beforeTitle}</span>
+                  </div>
+                  <h4 style={{ fontSize: "0.95rem", fontWeight: 800, color: "var(--color-text-primary)", marginBottom: "0.75rem", fontFamily: "monospace", lineHeight: 1.4 }}>
+                    "{c.beforeStatus}"
+                  </h4>
+                  <p style={{ fontSize: "0.875rem", color: "var(--color-text-secondary)" }}>
+                    {c.beforeMeaning}
+                  </p>
                 </div>
-                <h4 style={{ fontSize: "1rem", fontWeight: 800, color: "var(--color-text-primary)", marginBottom: "0.75rem", fontFamily: "monospace" }}>
-                  {c.beforeStatus}
-                </h4>
-                <p style={{ fontSize: "0.9rem", color: "var(--color-text-secondary)" }}>
-                  {c.beforeMeaning}
-                </p>
               </div>
 
               {/* After Card */}
               <div
                 style={{
-                  padding: "2rem",
-                  borderRadius: "var(--radius-xl)",
-                  backgroundColor: "var(--color-bg-card)",
-                  border: "2px solid var(--color-brand-primary)",
-                  boxShadow: "var(--shadow-md)",
+                  padding: "1.75rem",
+                  borderRadius: "var(--radius-lg)",
+                  backgroundColor: "#FFFFFF",
+                  border: "1.5px solid var(--color-brand-primary)",
+                  boxShadow: "var(--shadow-sm)",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
                 }}
               >
-                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "var(--color-status-ready)", marginBottom: "1rem" }}>
-                  <CheckCircle size={20} />
-                  <span style={{ fontSize: "0.85rem", fontWeight: 700 }}>{c.afterTitle}</span>
+                <div>
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "var(--color-status-ready)", marginBottom: "1rem" }}>
+                    <CheckCircle2 size={18} />
+                    <span style={{ fontSize: "0.75rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.05em" }}>{c.afterTitle}</span>
+                  </div>
+                  <h4 style={{ fontSize: "1.05rem", fontWeight: 800, color: "var(--color-brand-primary)", marginBottom: "0.75rem" }}>
+                    {c.afterStatus}
+                  </h4>
+                  <p style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--color-text-primary)", lineHeight: 1.5 }}>
+                    "{c.afterMeaning}"
+                  </p>
                 </div>
-                <h4 style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--color-brand-primary)", marginBottom: "0.75rem" }}>
-                  {c.afterStatus}
-                </h4>
-                <p style={{ fontSize: "0.95rem", fontWeight: 600, color: "var(--color-text-primary)" }}>
-                  "{c.afterMeaning}"
-                </p>
               </div>
             </div>
           ))}
@@ -110,10 +124,10 @@ export const BeforeAfterSection: React.FC = () => {
 
 export const TrustSafetySection: React.FC = () => {
   const badges = [
-    { icon: <Database size={24} color="var(--color-brand-primary)" />, title: "Synthetic Data Only", desc: "All names, districts, and IDs are 100% mock demo data." },
-    { icon: <Lock size={24} color="var(--color-brand-primary)" />, title: "No Real Aadhaar / PAN", desc: "We never ask for or store actual government identity numbers." },
-    { icon: <Key size={24} color="var(--color-brand-primary)" />, title: "No Live Government API", desc: "Operates in a self-contained simulated prototype environment." },
-    { icon: <CreditCard size={24} color="var(--color-brand-primary)" />, title: "No Real Payments", desc: "Zero fee collections or financial transactions processed." },
+    { icon: <Database size={22} color="var(--color-brand-primary)" />, title: "Synthetic Data Only", desc: "All names, districts, and application IDs are 100% synthetic demo data." },
+    { icon: <Lock size={22} color="var(--color-brand-primary)" />, title: "No Real Aadhaar / PAN", desc: "We never ask for, collect, or store real government identity numbers." },
+    { icon: <Key size={22} color="var(--color-brand-primary)" />, title: "Isolated Prototype", desc: "Operates in a self-contained sandbox environment with mock adapters." },
+    { icon: <CreditCard size={22} color="var(--color-brand-primary)" />, title: "Zero Financial Charges", desc: "No payment processing or financial transactions are collected." },
   ];
 
   return (
@@ -123,11 +137,14 @@ export const TrustSafetySection: React.FC = () => {
         paddingTop: "var(--space-section)",
         paddingBottom: "var(--space-section)",
         backgroundColor: "var(--color-bg-secondary)",
+        borderBottom: "1px solid rgba(217, 98, 30, 0.1)",
       }}
     >
       <div className="container-custom">
         <div style={{ maxWidth: "800px", margin: "0 auto", textAlign: "center", marginBottom: "3.5rem" }}>
-          <span className="eyebrow-badge">Trust & Safety</span>
+          <span className="eyebrow-badge">
+            <ShieldCheck size={14} /> Trust & Safety Protocol
+          </span>
           <h2
             style={{
               fontFamily: "var(--font-display)",
@@ -136,33 +153,36 @@ export const TrustSafetySection: React.FC = () => {
               color: "var(--color-text-primary)",
               marginTop: "1rem",
               marginBottom: "1rem",
+              lineHeight: 1.1,
             }}
           >
-            Built for citizens. Not pretending to be government.
+            Built for citizens. Transparent disclosures.
           </h2>
           <p style={{ fontSize: "var(--text-body-lg)", color: "var(--color-text-secondary)" }}>
-            SevaSaathi is an independent prototype demonstrating how a simpler citizen experience could sit on top of authorized government services.
+            SevaSaathi is an independent prototype demonstrating how a clear, AI-guided citizen experience can streamline public service delivery.
           </p>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "1.5rem", marginBottom: "3rem" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "1.25rem", maxWidth: "960px", margin: "0 auto 2.5rem auto" }}>
           {badges.map((b, idx) => (
             <div
               key={idx}
               className="spotlight-card"
               style={{
-                padding: "1.75rem",
-                backgroundColor: "var(--color-bg-card)",
+                padding: "1.5rem",
+                backgroundColor: "#FFFFFF",
                 textAlign: "center",
+                borderRadius: "var(--radius-lg)",
+                border: "1px solid rgba(217, 98, 30, 0.14)",
               }}
             >
-              <div style={{ display: "inline-flex", padding: "0.8rem", borderRadius: "14px", backgroundColor: "var(--color-bg-tertiary)", marginBottom: "1rem" }}>
+              <div style={{ display: "inline-flex", padding: "0.75rem", borderRadius: "12px", backgroundColor: "var(--color-brand-accent-bg)", marginBottom: "1rem" }}>
                 {b.icon}
               </div>
-              <h4 style={{ fontSize: "1.1rem", fontWeight: 700, color: "var(--color-text-primary)", marginBottom: "0.5rem" }}>
+              <h4 style={{ fontSize: "1rem", fontWeight: 800, color: "var(--color-text-primary)", marginBottom: "0.4rem" }}>
                 {b.title}
               </h4>
-              <p style={{ fontSize: "0.875rem", color: "var(--color-text-secondary)" }}>
+              <p style={{ fontSize: "0.825rem", color: "var(--color-text-secondary)", lineHeight: 1.4 }}>
                 {b.desc}
               </p>
             </div>
@@ -171,26 +191,28 @@ export const TrustSafetySection: React.FC = () => {
 
         <div
           style={{
-            maxWidth: "600px",
+            maxWidth: "640px",
             margin: "0 auto",
-            padding: "1rem 1.5rem",
+            padding: "0.85rem 1.5rem",
             borderRadius: "var(--radius-pill)",
-            backgroundColor: "var(--color-bg-tertiary)",
-            border: "1px solid rgba(232, 114, 42, 0.2)",
+            backgroundColor: "#FFFFFF",
+            border: "1px solid rgba(217, 98, 30, 0.2)",
             textAlign: "center",
-            fontSize: "0.875rem",
-            fontWeight: 700,
+            fontSize: "0.85rem",
+            fontWeight: 800,
             color: "var(--color-brand-primary)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             gap: "0.5rem",
+            boxShadow: "var(--shadow-sm)",
           }}
         >
           <ShieldCheck size={18} />
-          <span>Independent prototype — not an official Gujarat Government service.</span>
+          <span>Independent Citizen Prototype — Not an official Gujarat Government service.</span>
         </div>
       </div>
     </section>
   );
 };
+
