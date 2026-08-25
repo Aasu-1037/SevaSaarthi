@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageSquare, FileCheck, Send, BarChart2, RefreshCw, ArrowRight, CheckCircle2, ShieldCheck } from "lucide-react";
 
@@ -228,34 +229,44 @@ export const ZigZagSection: React.FC = () => {
                 </Link>
               </div>
 
-              {/* Right Context Feature Card */}
+              {/* Right Context Feature Card with Image */}
               <div
                 style={{
                   backgroundColor: "var(--color-bg-primary)",
                   borderRadius: "var(--radius-lg)",
-                  padding: "2rem",
+                  padding: "1.5rem",
                   border: "1px solid rgba(217, 98, 30, 0.16)",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
                 }}
               >
-                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "var(--color-status-ready)", marginBottom: "1.25rem" }}>
-                  <CheckCircle2 size={20} />
+                <div style={{ borderRadius: "var(--radius-md)", overflow: "hidden", border: "1px solid rgba(217, 98, 30, 0.15)", marginBottom: "1.25rem", boxShadow: "var(--shadow-sm)" }}>
+                  <Image
+                    src="/images/journey_preview.png"
+                    alt="5-Step Citizen Journey Infographic Preview"
+                    width={400}
+                    height={260}
+                    style={{ width: "100%", height: "auto", display: "block", objectFit: "cover" }}
+                  />
+                </div>
+
+                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "var(--color-status-ready)", marginBottom: "0.5rem" }}>
+                  <CheckCircle2 size={18} />
                   <span style={{ fontSize: "0.85rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.05em" }}>
                     Key Benefit
                   </span>
                 </div>
 
-                <h4 style={{ fontSize: "1.2rem", fontWeight: 800, color: "var(--color-text-primary)", marginBottom: "0.75rem" }}>
+                <h4 style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--color-text-primary)", marginBottom: "0.5rem" }}>
                   {currentStep.keyHighlight}
                 </h4>
 
-                <p style={{ fontSize: "0.9rem", color: "var(--color-text-secondary)", lineHeight: 1.5 }}>
-                  SevaSaathi ensures citizens are never stuck in bureaucratic dead-ends. Every step provides plain-language instructions, instant validations, and clear timelines.
+                <p style={{ fontSize: "0.875rem", color: "var(--color-text-secondary)", lineHeight: 1.5 }}>
+                  SevaSaathi ensures citizens are never stuck in bureaucratic dead-ends. Every step provides plain-language instructions and clear timelines.
                 </p>
-
-                <div style={{ marginTop: "1.5rem", paddingTop: "1rem", borderTop: "1px solid rgba(217, 98, 30, 0.12)", display: "flex", alignItems: "center", gap: "0.4rem", fontSize: "0.8rem", fontWeight: 700, color: "var(--color-brand-primary)" }}>
-                  <ShieldCheck size={16} /> Synthetic Mock Data Prototype
-                </div>
               </div>
+
             </motion.div>
           </AnimatePresence>
         </div>
