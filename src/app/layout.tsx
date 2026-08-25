@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Manrope, Noto_Sans_Gujarati, Noto_Sans_Devanagari } from "next/font/google";
 import { LenisProvider } from "@/components/providers/LenisProvider";
 import { LanguageProvider } from "@/components/language/LanguageContext";
+import { AwardPreloader } from "@/components/animations/AwardPreloader";
 import { PrototypeBanner } from "@/components/ui/PrototypeBanner";
 import "./globals.css";
 
@@ -43,8 +44,10 @@ export default function RootLayout({
       <body>
         <LanguageProvider>
           <LenisProvider>
-            <PrototypeBanner />
-            {children}
+            <AwardPreloader>
+              <PrototypeBanner />
+              {children}
+            </AwardPreloader>
           </LenisProvider>
         </LanguageProvider>
       </body>
