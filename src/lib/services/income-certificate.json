@@ -1,0 +1,78 @@
+{
+  "serviceId": "income_certificate",
+  "serviceName": "Income Certificate",
+  "nativeName": "આવકનો દાખલો",
+  "department": "Revenue Department, Government of Gujarat",
+  "issuingAuthority": "Mamlatdar Office",
+  "supportedLanguages": ["en", "hi", "gu"],
+  "validityPeriod": "3 Financial Years",
+  "purposes": [
+    "Higher Education Scholarship",
+    "School Fee Concession",
+    "Government Welfare Scheme",
+    "Hostel Admission",
+    "Ration Card Income Revision"
+  ],
+  "documentCategories": [
+    {
+      "category": "identity",
+      "required": true,
+      "title": "Identity Proof",
+      "description": "Government-issued photo identification",
+      "options": ["Aadhaar Card", "Voter ID", "Ration Card", "Driving License"]
+    },
+    {
+      "category": "address",
+      "required": true,
+      "title": "Address Proof",
+      "description": "Proof of residence in Gujarat within last 6 months",
+      "options": ["Electricity Bill", "Water Bill", "Property Tax Receipt", "Ration Card"]
+    },
+    {
+      "category": "income",
+      "required": true,
+      "title": "Income Proof",
+      "description": "Proof of family annual income",
+      "options": ["Form 16", "Salary Slip", "Self-Declaration Affidavit", "Talati Income Report"]
+    }
+  ],
+  "workflowStates": [
+    "DRAFT",
+    "READY_TO_SUBMIT",
+    "SUBMITTED",
+    "UNDER_VERIFICATION",
+    "PROCESSING",
+    "NEEDS_CORRECTION",
+    "CORRECTION_IN_PROGRESS",
+    "CORRECTION_SUBMITTED",
+    "APPROVED",
+    "ISSUED"
+  ],
+  "stateExplanations": {
+    "SUBMITTED": {
+      "simpleWords": "Your application has been received by the portal and assigned a unique tracking number.",
+      "actionNeeded": false,
+      "nextStep": "Sent to Surat Mamlatdar verification queue."
+    },
+    "UNDER_VERIFICATION": {
+      "simpleWords": "Your application and documents are being reviewed by the designated revenue officer.",
+      "actionNeeded": false,
+      "nextStep": "Officer review → Processing → Issuance."
+    },
+    "NEEDS_CORRECTION": {
+      "simpleWords": "The reviewing officer found that one document (Address Proof) is outdated.",
+      "actionNeeded": true,
+      "nextStep": "Upload recent electricity bill (last 3 months) to resume review."
+    },
+    "CORRECTION_SUBMITTED": {
+      "simpleWords": "You submitted the updated address proof. The officer has received your correction.",
+      "actionNeeded": false,
+      "nextStep": "Officer re-review."
+    },
+    "ISSUED": {
+      "simpleWords": "Your Income Certificate has been officially issued with digital signature.",
+      "actionNeeded": false,
+      "nextStep": "Download PDF certificate."
+    }
+  }
+}
