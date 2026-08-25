@@ -6,7 +6,8 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Sparkles, CheckCircle2, Clock, ShieldCheck, FileText } from "lucide-react";
 import { DotGrid, ConcentricRings, OrganicBlob } from "../decorations/SvgDecorations";
 import { ThreeCanvas } from "../animations/ThreeCanvas";
-import { fadeUp, staggerContainer } from "@/lib/utils/animations";
+import { GsapBanner } from "../animations/GsapAnimation";
+import { AnimeBadge } from "../animations/AnimeEffects";
 
 export const Hero: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -29,12 +30,13 @@ export const Hero: React.FC = () => {
       ref={containerRef}
       style={{
         position: "relative",
-        paddingTop: "clamp(3rem, 7vw, 6rem)",
-        paddingBottom: "clamp(4rem, 8vw, 8rem)",
+        paddingTop: "clamp(3.5rem, 8vw, 7rem)",
+        paddingBottom: "clamp(4.5rem, 9vw, 9rem)",
         backgroundColor: "var(--color-bg-hero)",
         overflow: "hidden",
       }}
     >
+      {/* 3D WebGL Three.js Saffron Ring Background */}
       <ThreeCanvas />
       <DotGrid opacity={0.12} />
       <OrganicBlob color="var(--color-bg-tertiary)" opacity={0.8} />
@@ -50,67 +52,34 @@ export const Hero: React.FC = () => {
           opacity: 0.7,
         }}
       >
-        <ConcentricRings size={450} />
+        <ConcentricRings size={480} />
       </motion.div>
 
       <div className="container-custom" style={{ position: "relative", zIndex: 1 }}>
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          animate="visible"
-          style={{ maxWidth: "920px", y: yTitle, opacity: opacityFade }}
-        >
-          {/* Eyebrow */}
-          <motion.div variants={fadeUp} style={{ marginBottom: "1.25rem" }}>
-            <span className="eyebrow-badge">
-              An independent citizen-service prototype
-            </span>
-          </motion.div>
+        <motion.div style={{ maxWidth: "940px", y: yTitle, opacity: opacityFade }}>
+          {/* Anime.js Animated Eyebrow Badge */}
+          <div style={{ marginBottom: "1.5rem" }}>
+            <AnimeBadge text="An independent citizen-service prototype" />
+          </div>
 
-          {/* Huge Title */}
-          <motion.h1
-            variants={fadeUp}
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "var(--text-hero)",
-              fontWeight: 800,
-              lineHeight: 0.96,
-              letterSpacing: "-0.03em",
-              color: "var(--color-text-primary)",
-              marginBottom: "1.75rem",
-            }}
-          >
-            Government services, <br />
-            <span style={{ color: "var(--color-brand-primary)" }}>without the confusion.</span>
-          </motion.h1>
-
-          {/* Supporting Copy */}
-          <motion.p
-            variants={fadeUp}
-            style={{
-              fontSize: "var(--text-body-lg)",
-              color: "var(--color-text-secondary)",
-              maxWidth: "680px",
-              lineHeight: 1.6,
-              marginBottom: "2.5rem",
-            }}
-          >
-            Tell us what you need. SevaSaathi turns complicated processes into clear steps, explains what your status means, and shows you what to do next.
-          </motion.p>
+          {/* GSAP Powered Headline & Subtitle */}
+          <div style={{ marginBottom: "2.5rem" }}>
+            <GsapBanner
+              title="Government services, without the confusion."
+              subtitle="Tell us what you need. SevaSaathi turns complicated processes into clear steps, explains what your status means, and shows you what to do next."
+            />
+          </div>
 
           {/* CTAs */}
-          <motion.div
-            variants={fadeUp}
-            style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "1rem" }}
-          >
-            <Link href="/demo/start" className="btn-primary" style={{ padding: "1rem 2.2rem", fontSize: "1.05rem" }}>
+          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "1rem" }}>
+            <Link href="/demo/start" className="btn-primary" style={{ padding: "1.05rem 2.4rem", fontSize: "1.05rem" }}>
               <span>Start a service</span>
               <ArrowRight size={18} />
             </Link>
-            <Link href="/demo" className="btn-secondary" style={{ padding: "1rem 2.2rem", fontSize: "1.05rem" }}>
+            <Link href="/demo" className="btn-secondary" style={{ padding: "1.05rem 2.4rem", fontSize: "1.05rem" }}>
               <span>Try the demo</span>
             </Link>
-          </motion.div>
+          </div>
         </motion.div>
 
         {/* Hero Layered Cards Composition with Parallax Motion */}
@@ -119,7 +88,7 @@ export const Hero: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           style={{
-            marginTop: "4rem",
+            marginTop: "4.5rem",
             position: "relative",
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",

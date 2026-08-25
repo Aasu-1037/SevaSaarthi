@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { MessageSquare, FileCheck, Send, BarChart2, RefreshCw, ArrowRight } from "lucide-react";
 import { slideLeft, slideRight } from "@/lib/utils/animations";
+import { PixiStage } from "../animations/PixiStage";
 
 interface ZigZagStep {
   step: string;
@@ -69,7 +70,7 @@ export const ZigZagSection: React.FC = () => {
       }}
     >
       <div className="container-custom">
-        <div style={{ textAlign: "center", marginBottom: "5rem" }}>
+        <div style={{ textAlign: "center", marginBottom: "4rem" }}>
           <span className="eyebrow-badge">The Citizen Journey</span>
           <h2
             style={{
@@ -82,6 +83,11 @@ export const ZigZagSection: React.FC = () => {
           >
             Five simple steps from need to certificate
           </h2>
+        </div>
+
+        {/* PixiJS 2D Particle Wave Divider */}
+        <div style={{ marginBottom: "2rem" }}>
+          <PixiStage />
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: "3.5rem" }}>
