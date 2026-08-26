@@ -3,6 +3,7 @@ import { Navbar } from "@/components/navigation/Navbar";
 import { Hero } from "@/components/hero/Hero";
 import { ProblemSection, SolutionSection } from "@/components/cards/ProblemSolution";
 import { ZigZagSection } from "@/components/cards/ZigZagSection";
+import { BrandAppartStickyCards } from "@/components/cards/BrandAppartStickyCards";
 import { AIExperienceSection } from "@/components/cards/AIExperienceSection";
 import { BeforeAfterSection, TrustSafetySection } from "@/components/cards/BeforeAfterTrustSection";
 import { ArchitectureSection, FinalCTASection } from "@/components/cards/ArchitectureCTASection";
@@ -23,25 +24,28 @@ export default function Home() {
       {/* Section 3 — Solution */}
       <SolutionSection />
 
-      {/* Section 4 — Five-step journey */}
+      {/* Section 4 — BrandAppart 3D Dynamic Sticky Cards */}
+      <BrandAppartStickyCards />
+
+      {/* Section 5 — Five-step journey */}
       <ZigZagSection />
 
-      {/* Section 5 — AI experience */}
+      {/* Section 6 — AI experience */}
       <AIExperienceSection />
 
-      {/* Section 6 — Before / After */}
+      {/* Section 7 — Before / After */}
       <BeforeAfterSection />
 
-      {/* Section 7 — Trust and safety */}
+      {/* Section 8 — Trust and safety */}
       <TrustSafetySection />
 
-      {/* Section 8 — Architecture */}
+      {/* Section 9 — Architecture */}
       <ArchitectureSection />
 
-      {/* Section 9 — Final CTA */}
+      {/* Section 10 — Final CTA */}
       <FinalCTASection />
 
-      {/* Section 10 — Footer */}
+      {/* Section 11 — Footer */}
       <Footer />
     </main>
   );

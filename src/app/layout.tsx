@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Playfair_Display, JetBrains_Mono, Noto_Sans_Gujarati, Noto_Sans_Devanagari } from "next/font/google";
+import { Playfair_Display, JetBrains_Mono, Barlow_Condensed, DM_Mono, Noto_Sans_Gujarati, Noto_Sans_Devanagari } from "next/font/google";
 import { LenisProvider } from "@/components/providers/LenisProvider";
 import { LanguageProvider } from "@/components/language/LanguageContext";
 import { AwardPreloader } from "@/components/animations/AwardPreloader";
@@ -14,6 +14,18 @@ const playfair = Playfair_Display({
 const jetbrains = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
+});
+
+const barlow = Barlow_Condensed({
+  subsets: ["latin"],
+  weight: ["700", "800"],
+  variable: "--font-barlow",
+});
+
+const dmMono = DM_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-dm-mono",
 });
 
 const gujarati = Noto_Sans_Gujarati({
@@ -39,7 +51,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${playfair.variable} ${jetbrains.variable} ${gujarati.variable} ${devanagari.variable}`}
+      className={`${playfair.variable} ${jetbrains.variable} ${barlow.variable} ${dmMono.variable} ${gujarati.variable} ${devanagari.variable}`}
     >
       <body>
         <LanguageProvider>
