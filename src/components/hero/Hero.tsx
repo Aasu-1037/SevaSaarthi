@@ -109,64 +109,62 @@ export const Hero: React.FC = () => {
       ref={containerRef}
       style={{
         position: "relative",
-        paddingTop: "clamp(3.5rem, 6vw, 5.5rem)",
-        paddingBottom: "clamp(4.5rem, 8vw, 7rem)",
-        backgroundColor: "#FF5500",
-        color: "#0A0A0A",
+        paddingTop: "clamp(4.5rem, 8vw, 7.5rem)",
+        paddingBottom: "clamp(5rem, 9vw, 8rem)",
+        backgroundColor: "var(--color-bg-hero)",
+        borderBottom: "1px solid rgba(93, 64, 55, 0.25)",
         overflow: "hidden",
       }}
     >
+      {/* Vintage Paper Watermark Contour */}
+      <div
+        style={{
+          position: "absolute",
+          top: "5%",
+          right: "5%",
+          fontSize: "12rem",
+          fontFamily: "var(--font-primary)",
+          color: "rgba(93, 64, 55, 0.03)",
+          fontWeight: 700,
+          pointerEvents: "none",
+          userSelect: "none",
+        }}
+      >
+        TAB. IV
+      </div>
+
       <div className="container-custom" style={{ position: "relative", zIndex: 1 }}>
-        {/* Massive Screen-Filling Coffee & TV Style Typography Headline */}
-        <div style={{ maxWidth: "1150px", margin: "0 auto", textAlign: "center", marginBottom: "3rem" }}>
+        {/* Scientific Catalogue Eyebrow Stamp */}
+        <div style={{ maxWidth: "900px", margin: "0 auto", textAlign: "center", marginBottom: "3.5rem" }}>
           <motion.div
-            initial={{ opacity: 0, y: -12 }}
+            initial={{ opacity: 0, y: -15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            style={{ marginBottom: "1.25rem" }}
+            style={{ marginBottom: "1.5rem" }}
           >
-            <span
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.5rem",
-                padding: "0.4rem 1.1rem",
-                borderRadius: "99px",
-                backgroundColor: "rgba(10, 10, 10, 0.08)",
-                border: "1.5px solid rgba(10, 10, 10, 0.2)",
-                fontFamily: "var(--font-dm-mono), 'DM Mono', monospace",
-                fontSize: "0.85rem",
-                fontWeight: 700,
-                letterSpacing: "0.08em",
-                textTransform: "uppercase",
-                color: "#0A0A0A",
-              }}
-            >
-              <span className="pulse-dot" style={{ backgroundColor: "#0A0A0A" }} />
-              CERTIFIED CITIZEN SERVICE PROTOTYPE
+            <span className="eyebrow-badge">
+              <span className="pulse-dot" />
+              <span>FIG. 1.0 — SCIENTIFIC CITIZEN PROTOTYPE ARCHIVE</span>
             </span>
           </motion.div>
 
-          {/* Ultra-Large Screen-Filling Headline (Coffee & TV Style) */}
+          {/* Serif Headline with Terracotta Accent */}
           <motion.h1
-            initial={{ opacity: 0, scale: 0.96, y: 30 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
             style={{
-              fontFamily: "var(--font-syne), var(--font-barlow), sans-serif",
-              fontSize: "clamp(3.5rem, 10.5vw, 10.5rem)",
-              fontWeight: 800,
-              lineHeight: 0.88,
-              letterSpacing: "-0.035em",
-              textTransform: "uppercase",
-              color: "#0A0A0A",
-              marginBottom: "2.25rem",
-              userSelect: "none",
+              fontFamily: "var(--font-primary)",
+              fontSize: "var(--text-hero)",
+              fontWeight: 700,
+              lineHeight: 1.1,
+              letterSpacing: "-0.01em",
+              color: "var(--color-text-primary)",
+              marginBottom: "1.5rem",
             }}
           >
-            NOW FOR <br />
-            SOMETHING <br />
-            DIFFERENT
+            Government services, <br />
+            <span className="text-gradient-hero">rendered with taxonomic clarity.</span>
           </motion.h1>
 
           <motion.p
@@ -175,15 +173,14 @@ export const Hero: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             style={{
               fontFamily: "var(--font-primary)",
-              fontSize: "clamp(1.1rem, 2vw, 1.45rem)",
-              fontWeight: 500,
-              color: "rgba(10, 10, 10, 0.85)",
-              lineHeight: 1.5,
-              maxWidth: "680px",
+              fontSize: "var(--text-body-lg)",
+              color: "var(--color-text-secondary)",
+              lineHeight: 1.65,
+              maxWidth: "760px",
               margin: "0 auto",
             }}
           >
-            An independent citizen-first prototype transforming Digital Gujarat services into plain-language clarity.
+            An independent citizen-first scholarly prototype simplifying Digital Gujarat services with clear steps, AI intent parsing, and systematic documentation.
           </motion.p>
         </div>
 
