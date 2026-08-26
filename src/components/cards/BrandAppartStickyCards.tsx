@@ -187,59 +187,11 @@ export const BrandAppartStickyCards: React.FC = () => {
         height: "100vh",
         backgroundColor: "#e8e6df",
         perspective: "1000px",
-        perspectiveOrigin: "50% 45%",
+        perspectiveOrigin: "50% 50%",
         transformStyle: "preserve-3d",
         overflow: "hidden",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
       }}
     >
-      {/* Refined Header Framing */}
-      <div
-        style={{
-          paddingTop: "2.5rem",
-          textAlign: "center",
-          zIndex: 10,
-          pointerEvents: "none",
-        }}
-      >
-        <span
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.4rem",
-            padding: "0.35rem 0.85rem",
-            borderRadius: "6px",
-            backgroundColor: "rgba(28, 25, 23, 0.08)",
-            border: "1px solid rgba(28, 25, 23, 0.15)",
-            fontFamily: "var(--font-dm-mono), 'DM Mono', monospace",
-            fontSize: "0.75rem",
-            letterSpacing: "0.08em",
-            textTransform: "uppercase",
-            color: "#574e47",
-            marginBottom: "0.5rem",
-          }}
-        >
-          <Layers size={13} /> 3D DYNAMIC STICKY CARDS ARCHITECTURE
-        </span>
-
-        <h2
-          style={{
-            fontFamily: "var(--font-barlow), 'Barlow Condensed', sans-serif",
-            fontSize: "clamp(2rem, 3.8vw, 3.2rem)",
-            fontWeight: 800,
-            textTransform: "uppercase",
-            color: "#1c1917",
-            letterSpacing: "-0.01em",
-            lineHeight: 1,
-            margin: 0,
-          }}
-        >
-          ENTER THE FRAME
-        </h2>
-      </div>
-
       {/* 3D Cards Stack Container */}
       <div ref={containerRef} style={{ width: "100%", height: "100%", position: "relative" }}>
         {/* CARD 1: Revenue Dept */}
@@ -248,7 +200,7 @@ export const BrandAppartStickyCards: React.FC = () => {
           id="card-1"
           style={{
             position: "absolute",
-            top: "54%",
+            top: "50%",
             left: "50%",
             width: "clamp(320px, 72vw, 960px)",
             height: "clamp(300px, 56vh, 480px)",
@@ -306,7 +258,7 @@ export const BrandAppartStickyCards: React.FC = () => {
           id="card-2"
           style={{
             position: "absolute",
-            top: "54%",
+            top: "50%",
             left: "50%",
             width: "clamp(320px, 72vw, 960px)",
             height: "clamp(300px, 56vh, 480px)",
@@ -364,7 +316,7 @@ export const BrandAppartStickyCards: React.FC = () => {
           id="card-3"
           style={{
             position: "absolute",
-            top: "54%",
+            top: "50%",
             left: "50%",
             width: "clamp(320px, 72vw, 960px)",
             height: "clamp(300px, 56vh, 480px)",
@@ -422,7 +374,7 @@ export const BrandAppartStickyCards: React.FC = () => {
           id="card-4"
           style={{
             position: "absolute",
-            top: "54%",
+            top: "50%",
             left: "50%",
             width: "clamp(320px, 72vw, 960px)",
             height: "clamp(300px, 56vh, 480px)",

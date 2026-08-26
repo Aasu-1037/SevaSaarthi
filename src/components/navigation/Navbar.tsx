@@ -22,65 +22,41 @@ export const Navbar: React.FC = () => {
         position: "sticky",
         top: 0,
         zIndex: 50,
-        backgroundColor: "rgba(255, 248, 240, 0.88)",
-        backdropFilter: "blur(12px)",
-        borderBottom: "1px solid rgba(232, 114, 42, 0.1)",
-        paddingTop: "0.85rem",
-        paddingBottom: "0.85rem",
+        backgroundColor: "#FF5500",
+        borderBottom: "1px solid rgba(10, 10, 10, 0.12)",
+        paddingTop: "1rem",
+        paddingBottom: "1rem",
       }}
     >
       <div className="container-custom" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         {/* Brand Logo */}
         <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-          <div
-            style={{
-              width: "36px",
-              height: "36px",
-              borderRadius: "10px",
-              backgroundColor: "var(--color-brand-primary)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "var(--color-text-inverse)",
-              fontWeight: 800,
-              fontSize: "1.2rem",
-              boxShadow: "0 4px 10px rgba(232, 114, 42, 0.25)",
-            }}
-          >
-            S
-          </div>
           <span
             style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "1.35rem",
+              fontFamily: "var(--font-syne), var(--font-barlow), sans-serif",
+              fontSize: "1.6rem",
               fontWeight: 800,
-              letterSpacing: "-0.02em",
-              color: "var(--color-text-primary)",
+              letterSpacing: "-0.03em",
+              textTransform: "uppercase",
+              color: "#0A0A0A",
             }}
           >
             SEVASAATHI
           </span>
-          <span
-            style={{
-              width: "6px",
-              height: "6px",
-              borderRadius: "50%",
-              backgroundColor: "var(--color-brand-primary)",
-              alignSelf: "flex-end",
-              marginBottom: "6px",
-            }}
-          />
         </Link>
 
         {/* Desktop Nav Links */}
-        <nav style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
+        <nav style={{ display: "flex", alignItems: "center", gap: "2.5rem" }}>
           <Link
             href="/how-it-works"
             style={{
-              fontSize: "var(--text-body-sm)",
-              fontWeight: 600,
-              color: "var(--color-text-secondary)",
-              transition: "color 0.2s ease",
+              fontSize: "0.85rem",
+              fontFamily: "var(--font-dm-mono), 'DM Mono', monospace",
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: "0.06em",
+              color: "#0A0A0A",
+              transition: "opacity 0.2s ease",
             }}
           >
             {t("howItWorks")}
@@ -88,10 +64,13 @@ export const Navbar: React.FC = () => {
           <Link
             href="/services"
             style={{
-              fontSize: "var(--text-body-sm)",
-              fontWeight: 600,
-              color: "var(--color-text-secondary)",
-              transition: "color 0.2s ease",
+              fontSize: "0.85rem",
+              fontFamily: "var(--font-dm-mono), 'DM Mono', monospace",
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: "0.06em",
+              color: "#0A0A0A",
+              transition: "opacity 0.2s ease",
             }}
           >
             {t("services")}
@@ -99,10 +78,13 @@ export const Navbar: React.FC = () => {
           <Link
             href="#trust"
             style={{
-              fontSize: "var(--text-body-sm)",
-              fontWeight: 600,
-              color: "var(--color-text-secondary)",
-              transition: "color 0.2s ease",
+              fontSize: "0.85rem",
+              fontFamily: "var(--font-dm-mono), 'DM Mono', monospace",
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: "0.06em",
+              color: "#0A0A0A",
+              transition: "opacity 0.2s ease",
             }}
           >
             {t("whySevaSaathi")}
