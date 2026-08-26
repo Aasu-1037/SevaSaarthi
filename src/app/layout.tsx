@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
-import { Inter, Manrope, Noto_Sans_Gujarati, Noto_Sans_Devanagari } from "next/font/google";
+import { Playfair_Display, JetBrains_Mono, Noto_Sans_Gujarati, Noto_Sans_Devanagari } from "next/font/google";
 import { LenisProvider } from "@/components/providers/LenisProvider";
 import { LanguageProvider } from "@/components/language/LanguageContext";
 import { AwardPreloader } from "@/components/animations/AwardPreloader";
 import { PrototypeBanner } from "@/components/ui/PrototypeBanner";
 import "./globals.css";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-primary",
-});
-
-const manrope = Manrope({
+const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-display",
+});
+
+const jetbrains = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
 });
 
 const gujarati = Noto_Sans_Gujarati({
@@ -39,7 +39,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${manrope.variable} ${gujarati.variable} ${devanagari.variable}`}
+      className={`${playfair.variable} ${jetbrains.variable} ${gujarati.variable} ${devanagari.variable}`}
     >
       <body>
         <LanguageProvider>

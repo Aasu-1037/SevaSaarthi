@@ -1,46 +1,50 @@
 @import "next/font/google";
 
 :root {
-  /* Premium Warm Substrate Tokens */
-  --color-bg-primary: #FAF7F2;     /* Warm Alabaster */
-  --color-bg-secondary: #F3ECE2;   /* Soft Linen */
-  --color-bg-tertiary: #EFE4D6;    /* Light Saffron Sand */
-  --color-bg-hero: #FAF5EE;        /* Smooth Warm Cream */
-  --color-bg-footer: #EBE0D1;      /* Warm Sandstone */
-  --color-bg-card: #FFFFFF;        /* Pure White Surface */
-  --color-bg-input: #FFFFFF;       /* Ivory White */
+  /* Vintage Botanical Scientific Illustration Tokens (design (4).md) */
+  --color-bg-primary: #F0E5D3;     /* Aged Parchment */
+  --color-bg-secondary: #E7DBC7;   /* Scholarly Tinted Paper */
+  --color-bg-tertiary: #DDCFBA;    /* Aged Leaf Paper Border */
+  --color-bg-hero: #F4EAD9;        /* Illuminated Parchment */
+  --color-bg-footer: #E4D7C2;      /* Botanical Archive Footer */
+  --color-bg-card: #F7F0E4;        /* Specimen Plate Card Surface */
+  --color-bg-input: #FAF5EC;       /* Fine Parchment Input */
 
-  /* Brand Color Tokens */
-  --color-brand-primary: #D9621E;  /* Deep Saffron Amber */
-  --color-brand-secondary: #C04E38;/* Terracotta Clay */
-  --color-brand-warm: #E68A00;     /* Warm Amber */
-  --color-brand-soft: #E87A5D;     /* Soft Coral */
-  --color-brand-accent-bg: #FCECE3;/* Peach Blush Tint */
+  /* Brand Palette */
+  --color-brand-primary: #BF6B63;  /* Dried Rose Terracotta Accent */
+  --color-brand-secondary: #5D4037;/* Earth Brown Walnut */
+  --color-brand-warm: #4A6741;     /* Leaf Green Botanical */
+  --color-brand-soft: #8C6D58;     /* Faded Botanical Spice */
+  --color-brand-accent-bg: #EBDAD0;/* Terracotta Blush Tint */
 
-  /* Text Color Tokens */
-  --color-text-primary: #1C1917;   /* Deep Charcoal */
-  --color-text-secondary: #574E47; /* Coffee Brown */
-  --color-text-muted: #8C7E74;     /* Warm Muted Grey */
-  --color-text-inverse: #FFFFFF;   /* Crisp White */
-  --color-text-link: #D9621E;      /* Deep Saffron */
+  /* Text & Ink Tokens */
+  --color-text-primary: #1A1512;   /* Faded Ink Charcoal */
+  --color-text-secondary: #5D4037; /* Earth Brown Ink */
+  --color-text-muted: #4A6741;     /* Leaf Green Taxonomic Note */
+  --color-text-inverse: #F0E5D3;   /* Parchment Light Text */
+  --color-text-link: #BF6B63;      /* Terracotta Link */
 
   /* Status Colors */
-  --color-status-ready: #2E6F40;    /* Forest Sage Green */
-  --color-status-ready-bg: #E8F5EB; /* Sage Tint */
-  --color-status-attention: #D97706;/* Amber Alert */
-  --color-status-attention-bg: #FEF3C7;
-  --color-status-error: #B91C1C;    /* Terracotta Red */
-  --color-status-error-bg: #FEE2E2;
-  --color-status-info: #0D9488;     /* Deep Teal */
-  --color-status-info-bg: #CCFBF1;
+  --color-status-ready: #4A6741;    /* Leaf Green Success */
+  --color-status-ready-bg: #E1EAD8; /* Sage Tint */
+  --color-status-attention: #B87635;/* Ochre Alert */
+  --color-status-attention-bg: #F5E8D8;
+  --color-status-error: #BF6B63;    /* Terracotta Red */
+  --color-status-error-bg: #F7E7E5;
+  --color-status-info: #4A6741;     /* Leaf Green */
+  --color-status-info-bg: #E1EAD8;
 
-  /* Typography Scale */
-  --text-hero: clamp(2.75rem, 6vw, 5.5rem);
-  --text-display: clamp(2.2rem, 4vw, 3.75rem);
-  --text-h1: clamp(1.75rem, 3vw, 2.75rem);
-  --text-h2: clamp(1.35rem, 2.2vw, 2rem);
-  --text-h3: clamp(1.15rem, 1.6vw, 1.45rem);
-  --text-body-lg: 1.125rem;
+  /* Typography Scale — Playfair Display Serif Primary & JetBrains Mono Technical */
+  --font-primary: var(--font-display), 'Playfair Display', Georgia, serif;
+  --font-display: var(--font-display), 'Playfair Display', Georgia, serif;
+  --font-mono: var(--font-mono), 'JetBrains Mono', monospace;
+
+  --text-hero: clamp(2.5rem, 5vw, 4.25rem);
+  --text-display: clamp(2.1rem, 3.8vw, 3.5rem);
+  --text-h1: clamp(1.75rem, 2.8vw, 2.5rem);
+  --text-h2: clamp(1.35rem, 2vw, 1.85rem);
+  --text-h3: clamp(1.1rem, 1.5vw, 1.35rem);
+  --text-body-lg: 1.05rem;
   --text-body: 1rem;
   --text-body-sm: 0.875rem;
   --text-caption: 0.75rem;
@@ -56,22 +60,22 @@
   --space-3xl: 4.5rem;
   --space-section: clamp(4rem, 8vw, 7.5rem);
 
-  /* Container & Concentric Radii */
-  --container-max: 1200px;
+  /* Radius — Base 8px as defined in design (4).md */
+  --container-max: 1280px;
   --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 18px;
-  --radius-xl: 24px;
-  --radius-pill: 9999px;
+  --radius-md: 8px;
+  --radius-lg: 8px;
+  --radius-xl: 8px;
+  --radius-pill: 8px;
 
-  /* Layered Diffuse Elevation Shadows */
-  --shadow-sm: 0 1px 3px rgba(28, 25, 23, 0.04), 0 1px 2px rgba(28, 25, 23, 0.02);
-  --shadow-md: 0 4px 12px rgba(28, 25, 23, 0.05), 0 1px 3px rgba(28, 25, 23, 0.03);
-  --shadow-lg: 0 12px 32px rgba(28, 25, 23, 0.08), 0 4px 8px rgba(28, 25, 23, 0.04);
-  --shadow-card-hover: 0 20px 40px -10px rgba(217, 98, 30, 0.12), 0 8px 16px -4px rgba(28, 25, 23, 0.04);
+  /* Botanical Paper Shadows & Borders */
+  --shadow-sm: 0 2px 8px rgba(26, 21, 18, 0.04);
+  --shadow-md: 0 4px 14px rgba(26, 21, 18, 0.06);
+  --shadow-lg: 0 10px 24px rgba(26, 21, 18, 0.09);
+  --shadow-card-hover: 0 8px 20px rgba(191, 107, 99, 0.12);
 }
 
-/* Global Reset & Base Styles */
+/* Global Reset & Vintage Parchment Surface */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -82,9 +86,9 @@ html, body {
   background-color: var(--color-bg-primary);
   color: var(--color-text-primary);
   line-height: 1.6;
-  min-height: 100vh;
+  min-height: 100dvh;
   overflow-x: hidden;
-  font-family: var(--font-primary), system-ui, sans-serif;
+  font-family: var(--font-primary);
 }
 
 a {
@@ -96,7 +100,7 @@ button {
   font-family: inherit;
 }
 
-/* Utilities */
+/* Custom Container */
 .container-custom {
   max-width: var(--container-max);
   margin-left: auto;
@@ -105,130 +109,133 @@ button {
   padding-right: clamp(1.25rem, 4vw, 2.5rem);
 }
 
-/* 6-Layer Button Anatomy */
+/* Botanical Scientific Eyebrow Stamp Badge */
+.eyebrow-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.9rem;
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-brand-secondary);
+  border-radius: var(--radius-sm);
+  color: var(--color-brand-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Botanical Primary Button — Terracotta Fill, Parchment Text, Fine Ink Stroke */
 .btn-primary {
-  background: linear-gradient(180deg, #E66A23 0%, #C85413 100%);
+  background-color: var(--color-brand-primary);
   color: var(--color-text-inverse);
-  padding: 0.85rem 1.85rem;
-  border-radius: var(--radius-pill);
-  font-weight: 700;
+  padding: 0.75rem 1.6rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-primary);
+  font-weight: 600;
   font-size: var(--text-body-sm);
-  letter-spacing: 0.01em;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  box-shadow: 
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.35),
-    0 4px 14px rgba(217, 98, 30, 0.3),
-    0 1px 2px rgba(28, 25, 23, 0.1);
+  letter-spacing: 0.02em;
+  border: 1px solid #9E524B;
+  box-shadow: 0 2px 6px rgba(26, 21, 18, 0.1);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 200ms ease-out, background-color 200ms ease-out, box-shadow 200ms ease-out;
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.45),
-    0 8px 22px rgba(217, 98, 30, 0.4),
-    0 2px 4px rgba(28, 25, 23, 0.12);
+  background-color: #AA5A52;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(191, 107, 99, 0.25);
 }
 
 .btn-primary:active {
-  transform: translateY(0);
+  transform: translateY(1px);
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+/* Botanical Secondary Ghost Button */
 .btn-secondary {
-  background: var(--color-bg-card);
+  background-color: transparent;
   color: var(--color-text-primary);
-  padding: 0.85rem 1.85rem;
-  border-radius: var(--radius-pill);
-  font-weight: 700;
+  padding: 0.75rem 1.6rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-primary);
+  font-weight: 600;
   font-size: var(--text-body-sm);
-  border: 1px solid rgba(217, 98, 30, 0.22);
+  border: 1.5px solid var(--color-brand-secondary);
   box-shadow: var(--shadow-sm);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 200ms ease-out;
 }
 
 .btn-secondary:hover {
-  background: var(--color-brand-accent-bg);
+  background-color: var(--color-bg-secondary);
   border-color: var(--color-brand-primary);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  color: var(--color-brand-primary);
+  transform: translateY(-1px);
 }
 
-/* Concentric Card Architecture */
+/* Scientific Specimen Card Architecture — Parchment Surface & Double Border */
 .spotlight-card {
   position: relative;
-  background: var(--color-bg-card);
-  border: 1px solid rgba(217, 98, 30, 0.14);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+  background-color: var(--color-bg-card);
+  border: 1px solid rgba(93, 64, 55, 0.25);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  transition: transform 200ms ease-out, box-shadow 200ms ease-out, border-color 200ms ease-out;
+}
+
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  border: 1px solid rgba(93, 64, 55, 0.12);
+  border-radius: calc(var(--radius-sm) - 2px);
+  pointer-events: none;
 }
 
 .spotlight-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-2px);
   box-shadow: var(--shadow-card-hover);
-  border-color: rgba(217, 98, 30, 0.35);
+  border-color: var(--color-brand-primary);
 }
 
-/* Glassmorphism & Shimmer Utilities */
+/* Glass Parchment Panel */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.82);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(217, 98, 30, 0.18);
-  box-shadow: 0 16px 40px -12px rgba(217, 98, 30, 0.12), 0 4px 12px rgba(28, 25, 23, 0.03);
+  background-color: rgba(247, 240, 228, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(93, 64, 55, 0.25);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
 }
 
+/* Serif Hero Text Styling */
 .text-gradient-hero {
-  background: linear-gradient(135deg, #1C1917 0%, #D9621E 60%, #C04E38 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--color-brand-primary);
+  font-style: italic;
 }
 
 .pulse-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: var(--color-brand-primary);
-  box-shadow: 0 0 0 0 rgba(217, 98, 30, 0.7);
-  animation: pulseGlow 2s infinite cubic-bezier(0.66, 0, 0, 1);
-}
-
-@keyframes pulseGlow {
-  to {
-    box-shadow: 0 0 0 10px rgba(217, 98, 30, 0);
-  }
+  background-color: var(--color-brand-warm);
+  display: inline-block;
 }
 
 .shimmer-border {
   position: relative;
-  overflow: hidden;
 }
 
-.shimmer-border::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%);
-  transform: translateX(-100%);
-  animation: shimmerMove 3.5s infinite ease-in-out;
-}
-
-@keyframes shimmerMove {
-  100% {
-    transform: translateX(100%);
-  }
-}
 
 

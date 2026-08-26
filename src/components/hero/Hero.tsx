@@ -112,29 +112,29 @@ export const Hero: React.FC = () => {
         paddingTop: "clamp(4.5rem, 8vw, 7.5rem)",
         paddingBottom: "clamp(5rem, 9vw, 8rem)",
         backgroundColor: "var(--color-bg-hero)",
-        borderBottom: "1px solid rgba(217, 98, 30, 0.16)",
+        borderBottom: "1px solid rgba(93, 64, 55, 0.25)",
         overflow: "hidden",
       }}
     >
-      {/* Scroll-Linked Ambient Parallax Glow Orbs */}
-      <motion.div
+      {/* Vintage Paper Watermark Contour */}
+      <div
         style={{
-          y: yGlow,
           position: "absolute",
-          top: "-10%",
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: "90vw",
-          maxWidth: "1000px",
-          height: "500px",
-          backgroundImage: "radial-gradient(ellipse at center, rgba(217, 98, 30, 0.12) 0%, rgba(230, 138, 0, 0.05) 45%, transparent 70%)",
+          top: "5%",
+          right: "5%",
+          fontSize: "12rem",
+          fontFamily: "var(--font-primary)",
+          color: "rgba(93, 64, 55, 0.03)",
+          fontWeight: 700,
           pointerEvents: "none",
-          zIndex: 0,
+          userSelect: "none",
         }}
-      />
+      >
+        TAB. IV
+      </div>
 
       <div className="container-custom" style={{ position: "relative", zIndex: 1 }}>
-        {/* Floating Top Badge with Pulse Indicator */}
+        {/* Scientific Catalogue Eyebrow Stamp */}
         <div style={{ maxWidth: "900px", margin: "0 auto", textAlign: "center", marginBottom: "3.5rem" }}>
           <motion.div
             initial={{ opacity: 0, y: -15 }}
@@ -142,28 +142,29 @@ export const Hero: React.FC = () => {
             transition={{ duration: 0.5 }}
             style={{ marginBottom: "1.5rem" }}
           >
-            <span className="eyebrow-badge shimmer-border">
+            <span className="eyebrow-badge">
               <span className="pulse-dot" />
-              <span>Independent Citizen Prototype</span>
+              <span>FIG. 1.0 — SCIENTIFIC CITIZEN PROTOTYPE ARCHIVE</span>
             </span>
           </motion.div>
 
-          {/* Kinetic Linear Gradient Hero Headline */}
+          {/* Serif Headline with Terracotta Accent */}
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
             style={{
-              fontFamily: "var(--font-display)",
+              fontFamily: "var(--font-primary)",
               fontSize: "var(--text-hero)",
-              fontWeight: 800,
-              lineHeight: 1.06,
-              letterSpacing: "-0.035em",
+              fontWeight: 700,
+              lineHeight: 1.1,
+              letterSpacing: "-0.01em",
+              color: "var(--color-text-primary)",
               marginBottom: "1.5rem",
             }}
           >
             Government services, <br />
-            <span className="text-gradient-hero">without the confusion.</span>
+            <span className="text-gradient-hero">rendered with taxonomic clarity.</span>
           </motion.h1>
 
           <motion.p
@@ -171,6 +172,7 @@ export const Hero: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             style={{
+              fontFamily: "var(--font-primary)",
               fontSize: "var(--text-body-lg)",
               color: "var(--color-text-secondary)",
               lineHeight: 1.65,
@@ -178,7 +180,7 @@ export const Hero: React.FC = () => {
               margin: "0 auto",
             }}
           >
-            {t("heroSub")}
+            An independent citizen-first scholarly prototype simplifying Digital Gujarat services with clear steps, AI intent parsing, and systematic documentation.
           </motion.p>
         </div>
 
