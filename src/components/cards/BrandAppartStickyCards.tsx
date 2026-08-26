@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowRight, Sparkles, FileText, CheckCircle2, ShieldCheck, Zap } from "lucide-react";
+import { Sparkles, FileText, CheckCircle2, ShieldCheck, Zap, Layers } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,9 +19,9 @@ export const BrandAppartStickyCards: React.FC = () => {
 
     const totalCards = cards.length;
     const segmentSize = 1 / totalCards;
-    const cardYOffset = 4.5;
-    const cardScaleStep = 0.065;
-    const cardZStep = 35;
+    const cardYOffsetStep = 2.8; // Compact 2.8% vertical stack offset
+    const cardScaleStep = 0.048; // Subtle 4.8% scale reduction per level
+    const cardZStep = 28; // 28px depth per level
 
     const mouse = { targetX: 0, targetY: 0, currentX: 0, currentY: 0 };
     let currentVelocity = 0;
@@ -44,12 +44,12 @@ export const BrandAppartStickyCards: React.FC = () => {
     cards.forEach((card, i) => {
       gsap.set(card, {
         xPercent: -50,
-        yPercent: -50 + i * cardYOffset,
+        yPercent: -50 + i * cardYOffsetStep,
         z: -i * cardZStep,
         scale: 1 - i * cardScaleStep,
       });
       const media = card.querySelector(".col-media");
-      if (media) gsap.set(media, { scale: 1.12 });
+      if (media) gsap.set(media, { scale: 1.1 });
     });
 
     const updateCardTransforms = () => {
@@ -60,68 +60,68 @@ export const BrandAppartStickyCards: React.FC = () => {
       );
       const segProgress = (progress - activeIndex * segmentSize) / segmentSize;
 
-      const velTilt = gsap.utils.clamp(-6, 6, currentVelocity * 0.025);
-      const velSkew = gsap.utils.clamp(-3, 3, currentVelocity * 0.015);
+      const velTilt = gsap.utils.clamp(-4, 4, currentVelocity * 0.02);
+      const velSkew = gsap.utils.clamp(-2, 2, currentVelocity * 0.01);
 
       cards.forEach((card, i) => {
         const colText = card.querySelector<HTMLElement>(".col-text");
         const colMedia = card.querySelector<HTMLElement>(".col-media");
 
         if (i < activeIndex) {
-          // Parked above viewport
+          // Parked above viewport with clean fade
           gsap.set(card, {
-            yPercent: -250,
-            rotationX: 38,
+            yPercent: -180,
+            rotationX: 28,
             rotationY: 0,
             rotationZ: 0,
-            z: -80,
+            z: -60,
             opacity: 0,
           });
         } else if (i === activeIndex) {
-          // Active Card 3D Z-arc peel trajectory
-          const baseRotX = gsap.utils.interpolate(0, 36, segProgress);
+          // Active Card: Silky 3D Arc Peel
+          const baseRotX = gsap.utils.interpolate(0, 28, segProgress);
           const dynamicZ =
-            gsap.utils.interpolate(0, -50, segProgress) +
-            Math.sin(segProgress * Math.PI) * 40;
-          const dynamicRoll = (i % 2 === 0 ? -2.5 : 2.5) * segProgress;
+            gsap.utils.interpolate(0, -40, segProgress) +
+            Math.sin(segProgress * Math.PI) * 32;
+          const dynamicRoll = (i % 2 === 0 ? -2 : 2) * segProgress;
 
           gsap.set(card, {
-            yPercent: gsap.utils.interpolate(-50, -200, segProgress),
-            rotationX: baseRotX + mouse.currentY * -4 + velTilt,
-            rotationY: mouse.currentX * 5,
+            yPercent: gsap.utils.interpolate(-50, -160, segProgress),
+            rotationX: baseRotX + mouse.currentY * -3 + velTilt,
+            rotationY: mouse.currentX * 4,
             rotationZ: dynamicRoll + velSkew,
             z: dynamicZ,
-            scale: 1,
-            opacity: 1,
+            scale: gsap.utils.interpolate(1, 0.96, segProgress),
+            opacity: gsap.utils.interpolate(1, 0.95, segProgress),
           });
 
           if (colMedia) {
             gsap.set(colMedia, {
-              yPercent: gsap.utils.interpolate(-12, 12, segProgress) + mouse.currentY * -7,
-              xPercent: mouse.currentX * -6,
-              scale: gsap.utils.interpolate(1.18, 1.12, segProgress),
+              yPercent: gsap.utils.interpolate(-8, 8, segProgress) + mouse.currentY * -5,
+              xPercent: mouse.currentX * -4,
+              scale: gsap.utils.interpolate(1.12, 1.08, segProgress),
             });
           }
 
           if (colText) {
             gsap.set(colText, {
-              xPercent: mouse.currentX * 4,
-              yPercent: gsap.utils.interpolate(0, -10, segProgress) + mouse.currentY * 3.5,
+              xPercent: mouse.currentX * 3,
+              yPercent: gsap.utils.interpolate(0, -6, segProgress) + mouse.currentY * 2.5,
             });
           }
         } else {
-          // Underneath Stack Cards
+          // Underneath Stack Cards: Z-depth advancement
           const behindIndex = i - activeIndex;
           const currentDelta = behindIndex - segProgress;
-          const currentYOffset = currentDelta * cardYOffset;
+          const currentYOffset = currentDelta * cardYOffsetStep;
           const currentScale = 1 - currentDelta * cardScaleStep;
           const currentZ = -currentDelta * cardZStep;
-          const currentOpacity = 1 - currentDelta * 0.05;
+          const currentOpacity = Math.max(0.35, 1 - currentDelta * 0.08);
 
           gsap.set(card, {
             yPercent: -50 + currentYOffset,
-            rotationX: mouse.currentY * -2 + velTilt * 0.4,
-            rotationY: mouse.currentX * 2.5,
+            rotationX: mouse.currentY * -1.5 + velTilt * 0.3,
+            rotationY: mouse.currentX * 2,
             rotationZ: 0,
             z: currentZ,
             scale: currentScale,
@@ -130,16 +130,16 @@ export const BrandAppartStickyCards: React.FC = () => {
 
           if (colMedia) {
             gsap.set(colMedia, {
-              yPercent: currentDelta * -4 + mouse.currentY * -3,
-              xPercent: mouse.currentX * -3,
-              scale: 1.12,
+              yPercent: currentDelta * -3 + mouse.currentY * -2,
+              xPercent: mouse.currentX * -2,
+              scale: 1.1,
             });
           }
 
           if (colText) {
             gsap.set(colText, {
-              xPercent: mouse.currentX * 2,
-              yPercent: mouse.currentY * 2,
+              xPercent: mouse.currentX * 1.5,
+              yPercent: mouse.currentY * 1.5,
             });
           }
         }
@@ -149,10 +149,10 @@ export const BrandAppartStickyCards: React.FC = () => {
     const trigger = ScrollTrigger.create({
       trigger: sectionRef.current,
       start: "top top",
-      end: `+=${window.innerHeight * 5}px`,
+      end: `+=${window.innerHeight * 4.5}px`,
       pin: true,
       pinSpacing: true,
-      scrub: true,
+      scrub: 0.6,
       onUpdate: (self) => {
         currentProgress = self.progress;
         const vel = self.getVelocity ? self.getVelocity() : 0;
@@ -162,8 +162,8 @@ export const BrandAppartStickyCards: React.FC = () => {
     });
 
     const tickerCallback = () => {
-      mouse.currentX += (mouse.targetX - mouse.currentX) * 0.08;
-      mouse.currentY += (mouse.targetY - mouse.currentY) * 0.08;
+      mouse.currentX += (mouse.targetX - mouse.currentX) * 0.06;
+      mouse.currentY += (mouse.targetY - mouse.currentY) * 0.06;
       updateCardTransforms();
     };
 
@@ -180,287 +180,296 @@ export const BrandAppartStickyCards: React.FC = () => {
   return (
     <section
       ref={sectionRef}
-      className="brandappart-container"
+      className="brandappart-section"
       style={{
         position: "relative",
         width: "100%",
         height: "100vh",
-        backgroundColor: "#e3e3db",
+        backgroundColor: "#e8e6df",
         perspective: "1000px",
-        perspectiveOrigin: "50% 50%",
+        perspectiveOrigin: "50% 45%",
         transformStyle: "preserve-3d",
         overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
       }}
     >
-      {/* Intro Overlay Title */}
+      {/* Refined Header Framing */}
       <div
         style={{
-          position: "absolute",
-          top: "6%",
-          left: "50%",
-          transform: "translateX(-50%)",
+          paddingTop: "2.5rem",
           textAlign: "center",
           zIndex: 10,
           pointerEvents: "none",
         }}
       >
-        <p
+        <span
           style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.4rem",
+            padding: "0.35rem 0.85rem",
+            borderRadius: "6px",
+            backgroundColor: "rgba(28, 25, 23, 0.08)",
+            border: "1px solid rgba(28, 25, 23, 0.15)",
             fontFamily: "var(--font-dm-mono), 'DM Mono', monospace",
-            fontSize: "0.85rem",
+            fontSize: "0.75rem",
             letterSpacing: "0.08em",
             textTransform: "uppercase",
             color: "#574e47",
-            marginBottom: "0.3rem",
+            marginBottom: "0.5rem",
           }}
         >
-          3D DYNAMIC STICKY CARDS ARCHITECTURE
-        </p>
+          <Layers size={13} /> 3D DYNAMIC STICKY CARDS ARCHITECTURE
+        </span>
+
         <h2
           style={{
             fontFamily: "var(--font-barlow), 'Barlow Condensed', sans-serif",
-            fontSize: "clamp(2rem, 4vw, 3.2rem)",
+            fontSize: "clamp(2rem, 3.8vw, 3.2rem)",
             fontWeight: 800,
             textTransform: "uppercase",
             color: "#1c1917",
             letterSpacing: "-0.01em",
             lineHeight: 1,
+            margin: 0,
           }}
         >
           ENTER THE FRAME
         </h2>
       </div>
 
-      {/* 4 BrandAppart 3D Cards */}
+      {/* 3D Cards Stack Container */}
       <div ref={containerRef} style={{ width: "100%", height: "100%", position: "relative" }}>
-        {/* CARD 1: Signal Drift / Quiet Control */}
+        {/* CARD 1: Revenue Dept */}
         <div
           className="brand-card"
           id="card-1"
           style={{
             position: "absolute",
-            top: "50%",
+            top: "54%",
             left: "50%",
-            width: "76%",
-            height: "64%",
+            width: "clamp(320px, 72vw, 960px)",
+            height: "clamp(300px, 56vh, 480px)",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
             gap: "2rem",
-            padding: "2.5rem",
+            padding: "clamp(1.5rem, 3vw, 2.5rem)",
             borderRadius: "1.25rem",
-            backgroundColor: "#3d2fa9",
+            backgroundColor: "#2D2191",
             color: "#ffffff",
             transformOrigin: "center bottom",
             willChange: "transform, opacity",
             backfaceVisibility: "hidden",
             WebkitBackfaceVisibility: "hidden",
             transformStyle: "preserve-3d",
-            boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.28)",
+            boxShadow: "0 30px 60px -15px rgba(0, 0, 0, 0.35)",
             zIndex: 5,
           }}
         >
-          <div className="col-text" style={{ flex: 1, height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+          <div className="col-text" style={{ flex: 1.1, height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
             <div>
-              <p style={{ fontFamily: "var(--font-dm-mono), 'DM Mono', monospace", fontSize: "0.9rem", letterSpacing: "0.06em", textTransform: "uppercase", color: "rgba(255, 255, 255, 0.75)", marginBottom: "0.5rem" }}>
+              <p style={{ fontFamily: "var(--font-dm-mono), 'DM Mono', monospace", fontSize: "0.85rem", letterSpacing: "0.06em", textTransform: "uppercase", color: "rgba(255, 255, 255, 0.75)", marginBottom: "0.5rem" }}>
                 QUIET CONTROL // REVENUE DEPT
               </p>
-              <h1 style={{ fontFamily: "var(--font-barlow), 'Barlow Condensed', sans-serif", fontSize: "clamp(2.5rem, 5vw, 4.2rem)", fontWeight: 800, textTransform: "uppercase", lineHeight: 0.95, letterSpacing: "-0.02em" }}>
+              <h3 style={{ fontFamily: "var(--font-barlow), 'Barlow Condensed', sans-serif", fontSize: "clamp(2rem, 3.6vw, 3.4rem)", fontWeight: 800, textTransform: "uppercase", lineHeight: 0.95, letterSpacing: "-0.02em" }}>
                 SIGNAL DRIFT: INCOME CERTIFICATE
-              </h1>
+              </h3>
             </div>
 
             <div>
-              <p style={{ fontSize: "1rem", color: "rgba(255, 255, 255, 0.85)", lineHeight: 1.5, marginBottom: "1.5rem", textTransform: "none" }}>
+              <p style={{ fontSize: "0.95rem", color: "rgba(255, 255, 255, 0.85)", lineHeight: 1.45, marginBottom: "1.25rem", textTransform: "none" }}>
                 Natural language intent recognition resolves raw citizen requests into exact Digital Gujarat application checklists in under 2 seconds.
               </p>
-              <span style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.6rem 1.25rem", borderRadius: "99px", background: "rgba(255, 255, 255, 0.15)", fontSize: "0.85rem", fontWeight: 700 }}>
-                <Sparkles size={16} /> 99.4% INTENT MATCH ACCURACY
+              <span style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", padding: "0.5rem 1.1rem", borderRadius: "99px", background: "rgba(255, 255, 255, 0.15)", fontSize: "0.8rem", fontWeight: 700 }}>
+                <Sparkles size={15} /> 99.4% INTENT MATCH ACCURACY
               </span>
             </div>
           </div>
 
-          <div className="col-media" style={{ flex: 1, height: "100%", borderRadius: "0.85rem", overflow: "hidden", position: "relative", background: "rgba(255, 255, 255, 0.1)", border: "1px solid rgba(255, 255, 255, 0.2)", display: "flex", alignItems: "center", justifyContent: "center", padding: "2rem" }}>
+          <div className="col-media" style={{ flex: 0.9, height: "100%", borderRadius: "0.85rem", overflow: "hidden", position: "relative", background: "rgba(255, 255, 255, 0.12)", border: "1px solid rgba(255, 255, 255, 0.22)", display: "flex", alignItems: "center", justifyContent: "center", padding: "1.5rem" }}>
             <div style={{ textAlign: "center" }}>
-              <div style={{ width: "72px", height: "72px", borderRadius: "18px", background: "#ffffff", color: "#3d2fa9", display: "inline-flex", alignItems: "center", justifyContent: "center", marginBottom: "1rem", boxShadow: "0 10px 25px rgba(0,0,0,0.2)" }}>
-                <FileText size={38} />
+              <div style={{ width: "64px", height: "64px", borderRadius: "16px", background: "#ffffff", color: "#2D2191", display: "inline-flex", alignItems: "center", justifyContent: "center", marginBottom: "0.85rem", boxShadow: "0 10px 25px rgba(0,0,0,0.2)" }}>
+                <FileText size={32} />
               </div>
-              <h3 style={{ fontFamily: "var(--font-barlow), sans-serif", fontSize: "1.75rem", fontWeight: 800, textTransform: "uppercase" }}>INCOME PROOF MATRIX</h3>
-              <p style={{ fontSize: "0.85rem", opacity: 0.85, marginTop: "0.25rem" }}>STAMP PAPER VALUE: ₹300 | FY 2025-26 VALID</p>
+              <h4 style={{ fontFamily: "var(--font-barlow), sans-serif", fontSize: "1.4rem", fontWeight: 800, textTransform: "uppercase" }}>INCOME PROOF MATRIX</h4>
+              <p style={{ fontSize: "0.8rem", opacity: 0.85, marginTop: "0.2rem" }}>STAMP PAPER: ₹300 | FY 2025-26 VALID</p>
             </div>
           </div>
         </div>
 
-        {/* CARD 2: Skyline Drift / Urban Pulse */}
+        {/* CARD 2: Civil Supplies */}
         <div
           className="brand-card"
           id="card-2"
           style={{
             position: "absolute",
-            top: "50%",
+            top: "54%",
             left: "50%",
-            width: "76%",
-            height: "64%",
+            width: "clamp(320px, 72vw, 960px)",
+            height: "clamp(300px, 56vh, 480px)",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
             gap: "2rem",
-            padding: "2.5rem",
+            padding: "clamp(1.5rem, 3vw, 2.5rem)",
             borderRadius: "1.25rem",
-            backgroundColor: "#ff7722",
+            backgroundColor: "#E05300",
             color: "#ffffff",
             transformOrigin: "center bottom",
             willChange: "transform, opacity",
             backfaceVisibility: "hidden",
             WebkitBackfaceVisibility: "hidden",
             transformStyle: "preserve-3d",
-            boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.28)",
+            boxShadow: "0 30px 60px -15px rgba(0, 0, 0, 0.35)",
             zIndex: 4,
           }}
         >
-          <div className="col-text" style={{ flex: 1, height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+          <div className="col-text" style={{ flex: 1.1, height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
             <div>
-              <p style={{ fontFamily: "var(--font-dm-mono), 'DM Mono', monospace", fontSize: "0.9rem", letterSpacing: "0.06em", textTransform: "uppercase", color: "rgba(255, 255, 255, 0.8)", marginBottom: "0.5rem" }}>
+              <p style={{ fontFamily: "var(--font-dm-mono), 'DM Mono', monospace", fontSize: "0.85rem", letterSpacing: "0.06em", textTransform: "uppercase", color: "rgba(255, 255, 255, 0.8)", marginBottom: "0.5rem" }}>
                 URBAN PULSE // CIVIL SUPPLIES
               </p>
-              <h1 style={{ fontFamily: "var(--font-barlow), 'Barlow Condensed', sans-serif", fontSize: "clamp(2.5rem, 5vw, 4.2rem)", fontWeight: 800, textTransform: "uppercase", lineHeight: 0.95, letterSpacing: "-0.02em" }}>
+              <h3 style={{ fontFamily: "var(--font-barlow), 'Barlow Condensed', sans-serif", fontSize: "clamp(2rem, 3.6vw, 3.4rem)", fontWeight: 800, textTransform: "uppercase", lineHeight: 0.95, letterSpacing: "-0.02em" }}>
                 SKYLINE DRIFT: RATION MEMBER UPDATE
-              </h1>
+              </h3>
             </div>
 
             <div>
-              <p style={{ fontSize: "1rem", color: "rgba(255, 255, 255, 0.9)", lineHeight: 1.5, marginBottom: "1.5rem", textTransform: "none" }}>
+              <p style={{ fontSize: "0.95rem", color: "rgba(255, 255, 255, 0.9)", lineHeight: 1.45, marginBottom: "1.25rem", textTransform: "none" }}>
                 Automated household tree verification eliminates duplicate visits to civil supply offices across all urban municipal centers.
               </p>
-              <span style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.6rem 1.25rem", borderRadius: "99px", background: "rgba(0, 0, 0, 0.2)", fontSize: "0.85rem", fontWeight: 700 }}>
-                <CheckCircle2 size={16} /> ZERO SURPRISE REJECTIONS
+              <span style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", padding: "0.5rem 1.1rem", borderRadius: "99px", background: "rgba(0, 0, 0, 0.2)", fontSize: "0.8rem", fontWeight: 700 }}>
+                <CheckCircle2 size={15} /> ZERO SURPRISE REJECTIONS
               </span>
             </div>
           </div>
 
-          <div className="col-media" style={{ flex: 1, height: "100%", borderRadius: "0.85rem", overflow: "hidden", position: "relative", background: "rgba(0, 0, 0, 0.15)", border: "1px solid rgba(255, 255, 255, 0.25)", display: "flex", alignItems: "center", justifyContent: "center", padding: "2rem" }}>
+          <div className="col-media" style={{ flex: 0.9, height: "100%", borderRadius: "0.85rem", overflow: "hidden", position: "relative", background: "rgba(0, 0, 0, 0.15)", border: "1px solid rgba(255, 255, 255, 0.25)", display: "flex", alignItems: "center", justifyContent: "center", padding: "1.5rem" }}>
             <div style={{ textAlign: "center" }}>
-              <div style={{ width: "72px", height: "72px", borderRadius: "18px", background: "#ffffff", color: "#ff7722", display: "inline-flex", alignItems: "center", justifyContent: "center", marginBottom: "1rem", boxShadow: "0 10px 25px rgba(0,0,0,0.2)" }}>
-                <Zap size={38} />
+              <div style={{ width: "64px", height: "64px", borderRadius: "16px", background: "#ffffff", color: "#E05300", display: "inline-flex", alignItems: "center", justifyContent: "center", marginBottom: "0.85rem", boxShadow: "0 10px 25px rgba(0,0,0,0.2)" }}>
+                <Zap size={32} />
               </div>
-              <h3 style={{ fontFamily: "var(--font-barlow), sans-serif", fontSize: "1.75rem", fontWeight: 800, textTransform: "uppercase" }}>FAMILY TREE ADAPTER</h3>
-              <p style={{ fontSize: "0.85rem", opacity: 0.85, marginTop: "0.25rem" }}>BIRTH CERTIFICATE & AADHAAR LINKED</p>
+              <h4 style={{ fontFamily: "var(--font-barlow), sans-serif", fontSize: "1.4rem", fontWeight: 800, textTransform: "uppercase" }}>FAMILY TREE ADAPTER</h4>
+              <p style={{ fontSize: "0.8rem", opacity: 0.85, marginTop: "0.2rem" }}>BIRTH CERTIFICATE & AADHAAR LINKED</p>
             </div>
           </div>
         </div>
 
-        {/* CARD 3: Neural Assembly / Wired Thought */}
+        {/* CARD 3: Social Justice */}
         <div
           className="brand-card"
           id="card-3"
           style={{
             position: "absolute",
-            top: "50%",
+            top: "54%",
             left: "50%",
-            width: "76%",
-            height: "64%",
+            width: "clamp(320px, 72vw, 960px)",
+            height: "clamp(300px, 56vh, 480px)",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
             gap: "2rem",
-            padding: "2.5rem",
+            padding: "clamp(1.5rem, 3vw, 2.5rem)",
             borderRadius: "1.25rem",
-            backgroundColor: "#ff3d33",
+            backgroundColor: "#D9251D",
             color: "#ffffff",
             transformOrigin: "center bottom",
             willChange: "transform, opacity",
             backfaceVisibility: "hidden",
             WebkitBackfaceVisibility: "hidden",
             transformStyle: "preserve-3d",
-            boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.28)",
+            boxShadow: "0 30px 60px -15px rgba(0, 0, 0, 0.35)",
             zIndex: 3,
           }}
         >
-          <div className="col-text" style={{ flex: 1, height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+          <div className="col-text" style={{ flex: 1.1, height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
             <div>
-              <p style={{ fontFamily: "var(--font-dm-mono), 'DM Mono', monospace", fontSize: "0.9rem", letterSpacing: "0.06em", textTransform: "uppercase", color: "rgba(255, 255, 255, 0.8)", marginBottom: "0.5rem" }}>
+              <p style={{ fontFamily: "var(--font-dm-mono), 'DM Mono', monospace", fontSize: "0.85rem", letterSpacing: "0.06em", textTransform: "uppercase", color: "rgba(255, 255, 255, 0.8)", marginBottom: "0.5rem" }}>
                 WIRED THOUGHT // SOCIAL JUSTICE
               </p>
-              <h1 style={{ fontFamily: "var(--font-barlow), 'Barlow Condensed', sans-serif", fontSize: "clamp(2.5rem, 5vw, 4.2rem)", fontWeight: 800, textTransform: "uppercase", lineHeight: 0.95, letterSpacing: "-0.02em" }}>
+              <h3 style={{ fontFamily: "var(--font-barlow), 'Barlow Condensed', sans-serif", fontSize: "clamp(2rem, 3.6vw, 3.4rem)", fontWeight: 800, textTransform: "uppercase", lineHeight: 0.95, letterSpacing: "-0.02em" }}>
                 NEURAL ASSEMBLY: NON-CREAMY LAYER
-              </h1>
+              </h3>
             </div>
 
             <div>
-              <p style={{ fontSize: "1rem", color: "rgba(255, 255, 255, 0.9)", lineHeight: 1.5, marginBottom: "1.5rem", textTransform: "none" }}>
+              <p style={{ fontSize: "0.95rem", color: "rgba(255, 255, 255, 0.9)", lineHeight: 1.45, marginBottom: "1.25rem", textTransform: "none" }}>
                 OBC/SEBC quota concessions made simple with pre-filled self-declaration forms generated on demand.
               </p>
-              <span style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.6rem 1.25rem", borderRadius: "99px", background: "rgba(0, 0, 0, 0.2)", fontSize: "0.85rem", fontWeight: 700 }}>
-                <ShieldCheck size={16} /> PRE-FILLED FORM 16-A
+              <span style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", padding: "0.5rem 1.1rem", borderRadius: "99px", background: "rgba(0, 0, 0, 0.2)", fontSize: "0.8rem", fontWeight: 700 }}>
+                <ShieldCheck size={15} /> PRE-FILLED FORM 16-A
               </span>
             </div>
           </div>
 
-          <div className="col-media" style={{ flex: 1, height: "100%", borderRadius: "0.85rem", overflow: "hidden", position: "relative", background: "rgba(0, 0, 0, 0.15)", border: "1px solid rgba(255, 255, 255, 0.25)", display: "flex", alignItems: "center", justifyContent: "center", padding: "2rem" }}>
+          <div className="col-media" style={{ flex: 0.9, height: "100%", borderRadius: "0.85rem", overflow: "hidden", position: "relative", background: "rgba(0, 0, 0, 0.15)", border: "1px solid rgba(255, 255, 255, 0.25)", display: "flex", alignItems: "center", justifyContent: "center", padding: "1.5rem" }}>
             <div style={{ textAlign: "center" }}>
-              <div style={{ width: "72px", height: "72px", borderRadius: "18px", background: "#ffffff", color: "#ff3d33", display: "inline-flex", alignItems: "center", justifyContent: "center", marginBottom: "1rem", boxShadow: "0 10px 25px rgba(0,0,0,0.2)" }}>
-                <ShieldCheck size={38} />
+              <div style={{ width: "64px", height: "64px", borderRadius: "16px", background: "#ffffff", color: "#D9251D", display: "inline-flex", alignItems: "center", justifyContent: "center", marginBottom: "0.85rem", boxShadow: "0 10px 25px rgba(0,0,0,0.2)" }}>
+                <ShieldCheck size={32} />
               </div>
-              <h3 style={{ fontFamily: "var(--font-barlow), sans-serif", fontSize: "1.75rem", fontWeight: 800, textTransform: "uppercase" }}>OBC / SEBC CONCESSION</h3>
-              <p style={{ fontSize: "0.85rem", opacity: 0.85, marginTop: "0.25rem" }}>3-YEAR VALIDITY AUTOMATIC EXTENSION</p>
+              <h4 style={{ fontFamily: "var(--font-barlow), sans-serif", fontSize: "1.4rem", fontWeight: 800, textTransform: "uppercase" }}>OBC / SEBC CONCESSION</h4>
+              <p style={{ fontSize: "0.8rem", opacity: 0.85, marginTop: "0.2rem" }}>3-YEAR VALIDITY AUTOMATIC EXTENSION</p>
             </div>
           </div>
         </div>
 
-        {/* CARD 4: Learning Loop / Silent Repetition */}
+        {/* CARD 4: Social Defence */}
         <div
           className="brand-card"
           id="card-4"
           style={{
             position: "absolute",
-            top: "50%",
+            top: "54%",
             left: "50%",
-            width: "76%",
-            height: "64%",
+            width: "clamp(320px, 72vw, 960px)",
+            height: "clamp(300px, 56vh, 480px)",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
             gap: "2rem",
-            padding: "2.5rem",
+            padding: "clamp(1.5rem, 3vw, 2.5rem)",
             borderRadius: "1.25rem",
-            backgroundColor: "#2e6f40",
+            backgroundColor: "#1B5E20",
             color: "#ffffff",
             transformOrigin: "center bottom",
             willChange: "transform, opacity",
             backfaceVisibility: "hidden",
             WebkitBackfaceVisibility: "hidden",
             transformStyle: "preserve-3d",
-            boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.28)",
+            boxShadow: "0 30px 60px -15px rgba(0, 0, 0, 0.35)",
             zIndex: 2,
           }}
         >
-          <div className="col-text" style={{ flex: 1, height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+          <div className="col-text" style={{ flex: 1.1, height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
             <div>
-              <p style={{ fontFamily: "var(--font-dm-mono), 'DM Mono', monospace", fontSize: "0.9rem", letterSpacing: "0.06em", textTransform: "uppercase", color: "rgba(255, 255, 255, 0.8)", marginBottom: "0.5rem" }}>
+              <p style={{ fontFamily: "var(--font-dm-mono), 'DM Mono', monospace", fontSize: "0.85rem", letterSpacing: "0.06em", textTransform: "uppercase", color: "rgba(255, 255, 255, 0.8)", marginBottom: "0.5rem" }}>
                 SILENT REPETITION // SOCIAL DEFENCE
               </p>
-              <h1 style={{ fontFamily: "var(--font-barlow), 'Barlow Condensed', sans-serif", fontSize: "clamp(2.5rem, 5vw, 4.2rem)", fontWeight: 800, textTransform: "uppercase", lineHeight: 0.95, letterSpacing: "-0.02em" }}>
+              <h3 style={{ fontFamily: "var(--font-barlow), 'Barlow Condensed', sans-serif", fontSize: "clamp(2rem, 3.6vw, 3.4rem)", fontWeight: 800, textTransform: "uppercase", lineHeight: 0.95, letterSpacing: "-0.02em" }}>
                 LEARNING LOOP: SENIOR PENSION
-              </h1>
+              </h3>
             </div>
 
             <div>
-              <p style={{ fontSize: "1rem", color: "rgba(255, 255, 255, 0.9)", lineHeight: 1.5, marginBottom: "1.5rem", textTransform: "none" }}>
+              <p style={{ fontSize: "0.95rem", color: "rgba(255, 255, 255, 0.9)", lineHeight: 1.45, marginBottom: "1.25rem", textTransform: "none" }}>
                 Dignified pension support for elderly citizens with zero physical queueing or bureaucratic delays.
               </p>
-              <span style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.6rem 1.25rem", borderRadius: "99px", background: "rgba(0, 0, 0, 0.2)", fontSize: "0.85rem", fontWeight: 700 }}>
-                <Sparkles size={16} /> ₹0 GOVERNMENT WELFARE FEE
+              <span style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", padding: "0.5rem 1.1rem", borderRadius: "99px", background: "rgba(0, 0, 0, 0.2)", fontSize: "0.8rem", fontWeight: 700 }}>
+                <Sparkles size={15} /> ₹0 GOVERNMENT WELFARE FEE
               </span>
             </div>
           </div>
 
-          <div className="col-media" style={{ flex: 1, height: "100%", borderRadius: "0.85rem", overflow: "hidden", position: "relative", background: "rgba(0, 0, 0, 0.15)", border: "1px solid rgba(255, 255, 255, 0.25)", display: "flex", alignItems: "center", justifyContent: "center", padding: "2rem" }}>
+          <div className="col-media" style={{ flex: 0.9, height: "100%", borderRadius: "0.85rem", overflow: "hidden", position: "relative", background: "rgba(0, 0, 0, 0.15)", border: "1px solid rgba(255, 255, 255, 0.25)", display: "flex", alignItems: "center", justifyContent: "center", padding: "1.5rem" }}>
             <div style={{ textAlign: "center" }}>
-              <div style={{ width: "72px", height: "72px", borderRadius: "18px", background: "#ffffff", color: "#2e6f40", display: "inline-flex", alignItems: "center", justifyContent: "center", marginBottom: "1rem", boxShadow: "0 10px 25px rgba(0,0,0,0.2)" }}>
-                <CheckCircle2 size={38} />
+              <div style={{ width: "64px", height: "64px", borderRadius: "16px", background: "#ffffff", color: "#1B5E20", display: "inline-flex", alignItems: "center", justifyContent: "center", marginBottom: "0.85rem", boxShadow: "0 10px 25px rgba(0,0,0,0.2)" }}>
+                <CheckCircle2 size={32} />
               </div>
-              <h3 style={{ fontFamily: "var(--font-barlow), sans-serif", fontSize: "1.75rem", fontWeight: 800, textTransform: "uppercase" }}>SENIOR WELFARE SCHEME</h3>
-              <p style={{ fontSize: "0.85rem", opacity: 0.85, marginTop: "0.25rem" }}>DIRECT BENEFIT TRANSFER ENABLED</p>
+              <h4 style={{ fontFamily: "var(--font-barlow), sans-serif", fontSize: "1.4rem", fontWeight: 800, textTransform: "uppercase" }}>SENIOR WELFARE SCHEME</h4>
+              <p style={{ fontSize: "0.8rem", opacity: 0.85, marginTop: "0.2rem" }}>DIRECT BENEFIT TRANSFER ENABLED</p>
             </div>
           </div>
         </div>
